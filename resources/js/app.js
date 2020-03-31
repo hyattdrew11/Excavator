@@ -51,16 +51,16 @@ import VueProgressBar from 'vue-progressbar'
 // Optionally install the BootstrapVue icon components plugin
 // Vue.use(IconsPlugin)
 const options = {
-  color: '#bffaf3',
-  failedColor: '#874b4b',
-  thickness: '5px',
+  color: '#7aa9cc',
+  failedColor: 'red',
+  thickness: '3px',
   transition: {
     speed: '0.2s',
     opacity: '0.6s',
     termination: 300
   },
   autoRevert: true,
-  location: 'left',
+  location: 'top',
   inverse: false
 }
 
@@ -72,14 +72,14 @@ const app = new Vue({
     	admin,
     	smtp,
     	jobs,
-		adminhelp,
-		adminprofile,
-		adminnotifications,
-		adminleftnav,
-		user,
-		userhelp,
-		userprofile,
-		usernotifications,
-		userleftnav
+  		adminhelp,
+  		adminprofile,
+  		adminnotifications,
+  		adminleftnav,
+  		user,
+  		userhelp,
+  		userprofile,
+  		usernotifications,
+  		userleftnav
     }
 });

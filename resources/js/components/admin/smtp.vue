@@ -8,13 +8,13 @@
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add SMTP Connection</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title" id="exampleModalLabel">SMTP Connection</h5>
+                    <button id="closeConnection" type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form autocomplete="off" @submit.prevent="addConnection" method="post">
+                    <form autocomplete="off" @submit.prevent="editConnection" method="post">
                       <div class="row">
 
                         <!-- <div class="col-md-6">
@@ -55,7 +55,7 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>From Email Address</label>
-                            <input required v-model="connection.from_address" type="text" class="form-control" placeholder="username" aria-label="username">
+                            <input required v-model="connection.from_address" type="email" class="form-control" placeholder="username" aria-label="username">
                           </div>
                         </div>
 
@@ -107,7 +107,7 @@
              <div class="row mt-2">
                <div class="col-md-12">
                     <h4>SMTP Connections
-                       <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#modal">Add Connection</button>
+                       <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#modal">Edit Connection</button>
                        <button class="btn btn-sm btn-success float-right mr-1" data-toggle="modal" data-target="#testConnection">Test Connection</button>
                     </h4>
                     <hr />
@@ -127,35 +127,26 @@
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th scope="col">Name</th>
+                        <!-- <th scope="col">Name</th> -->
                         <th scope="col">Host</th>
                         <th scope="col">Port</th>
                         <th scope="col">Username</th>
                         <th scope="col">Password</th>
                         <th scope="col">Encryption</th>
-                        <th scope="col">Active</th>
-                        <th scope="col">Delete</th>
+                        <th scope="col">From Address</th>
+                        <th scope="col">From Name</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr  v-for="(x, index) in connections">
-                      <th scope="row">{{ x.name }}</th>
+                      <tr  v-for="(x, index) in connections" :key="x.id">
+                      <!-- <th scope="row">{{ x.name }}</th> -->
                       <th scope="row">{{ x.host }}</th>
                       <th scope="row">{{ x.port }}</th>
                       <th scope="row">{{ x.username }}</th>
-                      <th scope="row">{{ x.password }}</th>
+                      <th scope="row">••••••</th>
                       <th scope="row">{{ x.encryption }}</th>
-                      <th scope="row"> 
-                        <ToggleButton 
-                        :value="x.active"
-                        @change="activateSMTP(x)" 
-                        :font-size="12"
-                        class="mt-1 wt-500"
-                      />
-                      </th>
-                       <th scope="row"> 
-                        <button class="btn btn-sm btn-block btn-danger" @click="removeSMTP()">Delete</button>
-                       </th>
+                      <th scope="row">{{ x.from_address }}</th>
+                      <th scope="row">{{ x.from_name }}</th>
                       </tr>
                     </tbody>
                   </table>
@@ -169,76 +160,47 @@
     export default {
         name: 'index-admin',
         props: ['admin','users','connections', 'jobs'],
+        watch: { 
+          connections: function(newVal, oldVal) { 
+            if(newVal) {
+              this.connections = newVal
+            }
+          }
+        },
         data() {
             return { 
                 test: { 
                   email: null,
                   message: null,
                 },
-                connection: {
-                    name: null,
-                    host: null,
-                    port: null,
-                    username: null,
-                    password: null,
-                    from_address: null,
-                    from_name: null,
-                    active: 0,
-                }
+                connection: this.connections[0]
             }
         },
         components: {
           'ToggleButton': ToggleButton
         },
         methods: {
-          activateSMTP(connection) {
-            console.log(connection)
-            if(connection.active == 0) {
-              connection.active++
-            }
-            else {
-              connection.active = 0
-            }
-            let x = { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
-            window.axios.post('/activate/connection', connection , { headers : x })
-              .then(({ data }) => { 
-                setTimeout(() => { 
-                  // window.location.reload() 
-                }, 500)
-              })
-              .catch(function (e) { })
-          },
-          removeSMTP() {
-            confirm('Delete SMTP connection.')
-          },
           testConnection(evt) { 
             console.log(evt, this.connection)
           },
-          addConnection(evt) {
-            console.log(evt, this.connection)
+          editConnection(evt) {
             evt.preventDefault()
+            this.$Progress.start()
             let x = { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
-            window.axios.post('/add/connection', this.connection , { headers : x })
+            window.axios.post('/update/connection', this.connection , { headers : x })
               .then(({ data }) => { 
                 if(data) { 
-                  this.connections.push(data)
-                  // document.getElementById("modal").hide();
-                  
-                  // $('#modal')modal('hide')
-
-
-                  // this.$refs.addConnection.hide()
-                  this.connection = {
-                    name: null,
-                    host: null,
-                    port: null,
-                    username: null,
-                    password: null,
-                    active: 0,
-                  }
+                  this.connection = data
+                  this.connections[0] = data
+                  let close = document.getElementById("closeConnection");
+                  close.click()
+                  this.$Progress.finish()
+                }else {
+                  this.$Progress.fail()
+                  alert('Error creating connection');
                 }
               })
-              .catch(function (e) { console.log(e) })
+              .catch(function (e) { alert(e) })
           }
         }
     }

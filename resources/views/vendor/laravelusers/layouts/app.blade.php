@@ -96,9 +96,9 @@
             <main class="">
                 <adminleftnav></adminleftnav>
                 @yield('content')
-                <adminhelp></adminhelp>
-                <adminprofile></adminprofile>
-                <adminnotifications></adminnotifications>
+                <!-- <adminhelp></adminhelp> -->
+                <!-- <adminprofile></adminprofile> -->
+                <!-- <adminnotifications></adminnotifications> -->
             </main>
         </div>
 

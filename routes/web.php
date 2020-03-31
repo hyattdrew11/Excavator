@@ -25,7 +25,8 @@ Auth::routes([
 
 Route::get('/home', 'HomeController@index');
 Route::get('/smtp', 'HomeController@smtp');
-Route::post('/add/connection', 'SmtpController@create');
+Route::post('/update/connection', 'SmtpController@update');
+Route::post('/delete/connection', 'SmtpController@delete');
 Route::post('/activate/connection', 'SmtpController@activate');
 Route::get('/jobs', 'HomeController@jobs');
 Route::post('/job', 'Jobs@create');

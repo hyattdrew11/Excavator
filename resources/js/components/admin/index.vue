@@ -1,7 +1,7 @@
 <template>
-    <div id="admin" class="p-3 mt-4">
+    <div id="admin" class="p-3">
       <b-container>
-        <b-row class="">
+       <!--  <b-row class="">
           <b-col md='4'>
             <span>Report Count</span>
           </b-col>
@@ -11,7 +11,7 @@
            <b-col md='4'>
             <span>User Count</span>
           </b-col>
-        </b-row>
+        </b-row> -->
       </b-container>
 
    <!--  <div class="small">
