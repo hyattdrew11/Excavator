@@ -139,7 +139,7 @@ class SmtpController extends Controller
     public function show()
     {
         $admin      = Auth::user()->hasRole('admin');
-        $connections = DB::table('Smtp')->get();
+        $connections = DB::table('smtp')->get();
         if($admin)    { 
             return view('admin-home', ['connections' => $connections] );  
         }
