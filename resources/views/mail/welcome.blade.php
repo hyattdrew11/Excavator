@@ -353,7 +353,7 @@
                       <td>
                         <h3>Hello, welcome to DIG Excavator.</h3> 
                         <p>The system administrator has setup your account. Click on the link below to reset your password and login.</p>
-                        <a href="{{ env('APP_URL') }}/password/reset">Reset Password</a>
+                        <a href="{{ env('APP_URL') }}/password/reset" target="_blank">Reset Password</a>
                     </tr>
                   </table>
                 </td>
