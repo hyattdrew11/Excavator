@@ -1,0 +1,34 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+#brand {
+    display: inline-block;
+    height: 30px;
+    margin-right: 5px;
+}
+#admin {
+    display: inline-block;
+    float: left;
+    width: 85%;
+    padding: 35px 5px 5px 5px;
+    height: 100vh;
+    overflow-y: scroll;
+}
+.pointer { cursor: pointer; }
+.white { color: #FFF!important; }
+.modal-backdrop { background-color: #0000001f; }
+.floating-alert {
+	position: absolute;
+    width: 20%;
+    right: 45px;
+    bottom: 15px;
+}
+.loading {
+    opacity: .5;
+}

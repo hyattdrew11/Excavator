@@ -1,0 +1,123 @@
+#workflowDetails {
+    height: 100%;  
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#workflowDetails .table-container {
+    flex: 1 1 100%;
+    min-height: 0;
+    display: block;
+}
+
+#workflowDetails .table-container {
+    flex: 1 1 100%;
+    min-height: 0;
+    display: block;
+}
+
+
+#collection_workflow_search #workflow_list_search {
+    width: 100%;
+    font-size: large;
+    margin-top: 10px;
+}
+
+.workflow-header {
+    display: inline-flex;
+    justify-content: space-between;
+    margin: 4px 0;
+}
+
+#workflowDetails .filters {
+    margin: 0 0 4px 0;
+}
+
+#workflowDetails #searchFilter {
+    width: 100%;
+}
+
+.workflow-type-filters > span > label {
+    font-size: 13.6px;
+    margin-right: 24px;
+}
+
+#workflowDetails .filters input{
+    margin: 0 0 10px 0;
+}
+
+#workflowDetails #workflow_search_results {
+    width: 50%;
+    min-width: 200px;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+#workflow_search_results
+{
+    background: #fff;
+    box-shadow: 0 2px 4px 1px #666;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 40%;
+    min-width: 380px;
+    max-height: 100px;
+    overflow-y: auto;
+    width: auto;
+    padding: 0 8px;
+}
+
+#workflow_search_results.collapse {
+    visibility: collapse;
+}
+
+#workflow_search_results .search-item {
+    width: 100%;
+    margin: 8px 0;  
+    flex-direction: row;
+    flex-flow: row;
+}
+
+#workflow_search_results .search-item img{
+    margin: 0 6px;
+}
+
+#workflow_search_results .search-item tr{
+    margin: auto 6px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+}
+
+#workflow_search_results tr:hover,
+#workflow_search_results tr:active
+{
+    cursor: pointer;
+    background: #0092ca;
+}
+
+#collection_workflow_search #workflow_list_search {
+    width: 100%;
+}
+
+#collection_workflow_search input:focus {
+    outline: none;
+}
+
+#workflow_search_results .search-item:first-of-type {
+    width: 45px;
+}
+#workflow_search_results img {
+    width: 40px;
+    padding-top: 3px;
+}

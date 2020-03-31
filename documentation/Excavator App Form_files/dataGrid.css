@@ -1,0 +1,97 @@
+#dataGrid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-spacing: 0;
+  height: 100%;
+}
+
+#dataGrid thead tr {
+  background: #f2f2f2;
+  box-sizing: border-box;
+  border-left:  1px solid #ccc;
+}
+
+#dataGrid thead,
+#dataGrid tbody {
+  display: block;
+  box-sizing: border-box;
+}
+
+#dataGrid tr {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px solid;
+  border-color: #EAEFF9;
+}
+
+#dataGrid th,
+#dataGrid td {
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 8px 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#dataGrid th {
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  text-align: left;
+  color: #555;
+  font-weight: normal;
+  cursor: default;
+}
+
+#dataGrid .sortable {
+  cursor: pointer;
+  background: transparent url("./assets/sort_arrow_off.svg") right / 18px 12px
+    no-repeat;
+  position: relative;
+}
+
+#dataGrid .sortable.asc {
+  background: transparent url("./assets/sort_arrow_up.svg") right / 18px 12px
+    no-repeat;
+  position: relative;
+}
+
+#dataGrid .sortable.desc {
+  background: transparent url("./assets/sort_arrow_dwn.svg") right / 18px 12px
+    no-repeat;
+  position: relative;
+}
+
+#dataGrid tbody {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: inherit;
+  background: white;
+  min-height: 0;
+  flex: 1 1 100%;
+}
+
+#dataGrid td {
+  vertical-align: inherit;
+  color: #666;
+  text-align: left;
+  position: relative;
+}
+
+#dataGrid .table-image-small {
+  width: auto;
+  height: 1.25rem;
+}
+
+#dataGrid .table-image-medium {
+  width: auto;
+  height: 2.5rem;
+}
+
+#dataGrid .table-image-large {
+  width: auto;
+  height: 4.75rem;
+}

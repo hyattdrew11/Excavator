@@ -1,0 +1,77 @@
+#InsightDetails {
+    height: 100%;  
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.insight-header {
+    display: inline-flex;
+    justify-content: space-between;
+    margin: 4px 0;
+    width: 100%;
+}
+
+#InsightDetails .table-container {
+    flex: 1 1 100%;
+    min-height: 0;
+    display: block;
+}
+
+
+
+#insight_search_results
+{
+    background: #fff;
+    box-shadow: 0 2px 4px 1px #666;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 40%;
+    min-width: 380px;
+    max-height: 100px;
+    overflow-y: auto;
+    width: auto;
+}
+
+#insight_search_results.collapse {
+    visibility: collapse;
+}
+
+#insight_search_results .search-item {
+    width: 100%;
+    margin: 8px 0;  
+    display: flex;
+    flex-direction: row;
+    flex-flow: row;
+}
+
+#insight_search_results .search-item div{
+    margin: auto 6px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+}
+
+#insight_search_results div:hover,
+#insight_search_results div:active
+{
+    cursor: pointer;
+    background: #0092ca;
+}
+
+#collection_insight_search #insight_list_search {
+    width: 100%;
+}
+
+#collection_insight_search input:focus {
+    outline: none;
+}

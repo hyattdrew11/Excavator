@@ -1,0 +1,244 @@
+#collection-details {
+    height: 100%;
+    position: relative;
+    padding-top: 50px;
+    box-sizing: border-box
+}
+
+#loading {
+  width: 50px;
+  height: 50px;
+  margin: 10% auto;
+  display: block;
+  text-align: center;
+}
+
+.collection-details__heading {
+  background: white;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4px;
+  min-width: 810px;
+  vertical-align: top;
+}
+#permission_matrix-admin {
+  padding-top: 10px
+}
+
+.selected-items-header #item-Total {
+  float: left
+}
+
+#permissions_header{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-spacing: 0;
+}
+
+#permissions_header thead{
+  display: block;
+  box-sizing: border-box;
+}
+
+#permissions_header tr {
+  display: flex;
+  flex-direction: row;
+  border-color: #EAEFF9;
+  background: #f2f2f2;
+  box-sizing: border-box;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+
+#permissions_header th {
+    border-right: 1px solid #ccc;
+    text-align: left;
+    color: #555;
+    font-weight: normal;
+    cursor: default;
+    box-sizing: border-box;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 8px 10px;
+}
+
+#permission_checkbox {
+  width: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: .75rem;
+  transform: translate(-50%, -50%)
+}
+
+.selected-items-header #edit-permissions {
+  float: right;
+  margin-right: 20px;
+  margin-bottom: 5px
+}
+
+.selected-items-header #actions #edit-permissions img {
+  vertical-align: bottom;
+}
+
+#edit-permissions{
+  cursor: pointer;
+}
+
+.collection__creation-info {
+    left: 0;
+    top: 0;
+    padding: 8px;
+    width: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.collection__options {
+  right: 0;
+  top: 0;
+  /* grid-template-columns: max-content max-content;
+  grid-column-gap: 8px;
+  grid-row-gap: 8px; */
+  padding: 8px;
+  width: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+
+}
+
+#collection-details .heading-item {
+  margin: 0 8px;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 23%;
+  vertical-align: top;
+}
+
+#collection-details .heading-item img{
+  vertical-align: bottom;
+  padding-right: 10px;
+}
+
+#collection-details .label {
+  /* text-align: right; */
+  /* font-weight: bold; */
+  color: #999;
+  /* display: inline-block; */
+  margin: 4px 0;
+  /* vertical-align: middle; */
+}
+
+#collection-details
+
+#collection-details .info input {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+#collection-details .info
+{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#collection-details .info > img{
+  padding-left: 10px;
+  vertical-align: middle;
+}
+
+.collection-content-details {
+  background: white;
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+  padding: 8px;
+  padding-top: 36px;
+}
+
+.collectionTabs {
+  position: absolute;
+  top: 0;
+  margin: 0;
+  height: 37px;
+}
+
+.collectionTabs .activeTab {
+  background-color: white;
+  color: #0092ca;
+  border: 1px solid #ccc;
+  border-bottom: 0px;
+  outline: none;
+  width: 25%;
+  margin-right: 0;
+}
+
+.collection-Tab__content-holder {
+  background: white;
+  margin-top: -1px;
+  margin-left: -1px;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.collection-tab__content {
+  padding: 8px;
+  box-sizing: border-box;
+  height: 100%;
+  border: 1px solid #ccc
+}
+
+#collection-details .tabs {
+  height: calc(100% - 77px);
+  position: relative;
+  width: 100%;
+}
+
+#collection-details .SubscriptionUserDropdown {
+  width: 100%
+}
+
+#collection-details .subscription-users {
+    background: #fff;
+    box-shadow: 0 2px 4px 1px #666;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 300px;
+    max-height: 4rem;
+    overflow-y: auto;
+}
+
+#collection-details.collapse {
+    visibility: collapse;
+}
+
+#collection-details .subscription-user {
+  width: 100%;
+}
+
+#collection-details .subscription-users div:hover,
+#collection-details .subscription-users div:active
+{
+    cursor: pointer;
+    background: #0092ca;
+}
+
+#collection-details .owner_edit {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+  #collection-details .owner_edit svg {
+    width: 16px;
+    height: 16px;
+  }
+

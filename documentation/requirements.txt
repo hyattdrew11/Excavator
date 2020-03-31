@@ -1,0 +1,29 @@
+“Excavator App” for Data Intelligence Group
+
+Description
+The excavator app is a simple web-form application that allows authenticated users to request a report that will be emailed to them.  The user will log into the site where they will select from a few options, enter a few values, and submit the request.  The excavator app will compile the user’s selected options from the form, compose a specifically formatted email, and send the email to a designated email address with the form settings as an attachment.  Other processes that already exist will receive the email and process the attached report request settings, generate the report based on those settings, and email the report as an attachment to the requesting user’s email address.
+
+
+Basic User Process
+
+
+Requirements
+
+	•	Hosting Platform – Self hosted on VM; Windows or Linux
+	•	Secure Authentication – standard secure method for securing and authenticating users.  Passwords are encrypted, etc…
+	•	Administrator
+	•	Add/Delete User – see diagram
+	•	SMTP Configuration
+	•	Authentication Settings – used to authenticate to the SMTP server.  This account will also be the account from which the emails are sent.
+	•	Set recipient address – this is the email address that the app will send the report requests to.
+	•	Test Feature – once the settings are entered, the admin can test the configuration by supplying a “To:” email address and the system will attempt to authenticate with the SMTP settings and send a simple email to the “To:” address.
+	•	Excavator Application – see diagram
+	•	Form to collect the report settings
+	•	Must collect at least one “Report”
+	•	Must collect at least on “Key Value” (always numeric, no decimals)
+	•	At least one brand must be selected.
+	•	If PII option is selected
+	•	No need to collect email address
+	•	Put default name in filename field format “YYYYMMDD_Excavator_Report”
+	•	Compose and send email to user’s email address as stored in the user account information
+

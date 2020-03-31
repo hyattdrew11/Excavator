@@ -1,0 +1,102 @@
+#SubscriptionDetails {
+    height: 100%;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#SubscriptionDetails .table-container {
+    flex: 1 1 100%;
+    min-height: 0;
+    display: block;
+}
+
+/* Hack to fix column width bug in ancient IE 11 & < until that table is refactored
+in a way that it's header isn't split among two <table> elements */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    #SubscriptionDetails #permissions_header #asset-management-col {
+        flex:0 0 252px !important;
+    }
+
+    #SubscriptionDetails #permissions_header #user-management-col {
+        flex:0 0 171px !important;
+    }
+}
+
+#SubscriptionDetails #subscription_search_results {
+    width: 50%;
+    min-width: 200px;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+#subscription_search_results
+{
+    background: #fff;
+    box-shadow: 0 2px 4px 1px #666;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 40%;
+    min-width: 380px;
+    max-height: 100px;
+    overflow-y: auto;
+    width: 94.5%;
+}
+
+#subscription_search_results.collapse {
+    visibility: collapse;
+}
+
+#subscription_search_results .search-item {
+    width: 100%;
+    margin: 8px 8;
+    display: flex;
+    flex-direction: row;
+    flex-flow: row;
+}
+
+#subscription_search_results .search-item div{
+    margin: auto 6px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+}
+
+#subscription_search_results div:hover,
+#subscription_search_results div:active
+{
+    cursor: pointer;
+    background: #0092ca;
+}
+
+#collection_subscription_search #subscription_list_search {
+    width: 100%;
+}
+
+#collection_subscription_search input:focus {
+    outline: none;
+}
+
+.subscription-header {
+    display: inline-flex;
+    justify-content: space-between;
+    margin: 4px 0;
+}
+
+#collection_subscription_search{
+    padding-top: 12px;
+}
+
+#collection_subscription_search input{
+    padding-top: 4px;
+    padding-bottom: 4px;
+}

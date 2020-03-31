@@ -1,0 +1,158 @@
+  collection GRID
+
+ #collection_admin_grid_react {
+    margin: 20px 35px;
+    position: relative;
+  }
+  .collection_admin_grid_react {
+    height: 80vh;
+  }
+
+  .collection_admin_grid_react a {
+    color: inherit;
+    text-decoration: none;
+   }
+
+   .grid {
+     padding: 16px;
+   }
+
+  /* #react_admin_collection_grid .grid {
+    position: relative;
+    width: 75%;
+    max-height: 45rem;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    border: 5px #ddd solid;
+    border-top-left-radius: 0px;
+    transition: opacity .3s linear;
+  } */
+
+  /* HEADER / MENU ITEMS */
+
+  .collection_admin_grid_react #header {
+    display: flex;
+    width: 50%;
+  }
+
+  .collection_admin_grid_react  #menu {
+    align-items: flex-end;
+    padding: 15px 0;
+    margin-left: 3%;
+    display: flex;
+    flex-grow: 1;
+    font-weight: 500;
+    font-size: 1.3rem;
+  }
+
+   .collection_admin_grid_react div > button.menuItem {
+    display: flex;
+    margin: 10px;
+    margin-top: 10px;
+    background: #399ecd;
+    border: 1px solid #399ecd;
+    white-space: nowrap;
+    color: #FFF;
+    height: 2rem;
+    width: auto;
+    padding: .5rem;
+    font-weight: bold;
+    flex-grow: 0;
+  }
+
+
+  .collection_admin_grid_react div > button.menuItem:last-of-type {
+    display: flex;
+    margin: 10px;
+    margin-top: 10px;
+    background: #399ecd;
+    border: 1px solid #399ecd;
+    white-space: nowrap;
+    color: #FFF;
+    height: 2rem;
+    width: auto;
+    padding: .5rem;
+    font-weight: bold;
+    flex-grow: 0;
+    margin-right: 2rem;
+  }
+
+
+  .collection_admin_grid_react  button.detailsButton {
+    background: #399ecd;
+    border: 1px solid #399ecd;
+    white-space: nowrap;
+    color: #FFF;
+    height: 2rem;
+    width: auto;
+    padding: .5rem;
+    font-weight: bold;
+  }
+
+  /* #react_admin_collection_grid th,td{
+    text-align: left;
+  } */
+
+.collectionsGrid{
+  height: 90%
+}
+
+
+   #collections {
+    table-layout: fixed;
+    margin: 1.5% 0;
+    /* margin-top: 0; */
+    width: 100%;
+    /* background-color: white; */
+    border: 1px #ddd solid;
+    /* max-height: 40rem; */
+    /* overflow-y: scroll; */
+    /* overflow-x: scroll; */
+    overflow: auto;
+   }
+
+  .collectionAttr > input {
+    border: none;
+    font-size: 1rem;
+    transition:  background-color 50ms linear;
+    background-color: inherit;
+    color: inherit;
+    max-width: inherit;
+  }
+
+  #collection_search_wrapper {
+    float: right;
+  }
+
+  #collection_count {
+    float: left;
+  }
+  /* #collection_subscription_search #subscription_search_results, */
+
+  /* #collection_subscription_search #subscription_search_results tr:hover, */
+
+  #collection_subscription_search #subscription_list_search,
+  #collection_user_search #user_list_search
+  {
+      width: 33%;
+      margin-bottom: 5px;
+  }
+
+  .collectionName
+  {
+    color: #0188c2;
+    cursor: pointer;
+    }
+
+  .addCollection {
+    font-size: .9rem !important;
+    margin-bottom: 5px;
+  }
+
+  #delete_collection_table,
+  #new_collection_table {
+    display: table;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px
+  }
