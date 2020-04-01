@@ -86,7 +86,7 @@ class HomeController extends Controller
                 ->join('role_user', 'users.id', '=', 'role_user.user_id')
                 ->join('roles', 'role_user.role_id', '=', 'roles.id')
                 ->get();
-            $connections = \DB::table('Smtp')->get();
+            $connections = \DB::table('smtp')->get();
             $jobs = \DB::table('jobs')
                 ->join('users', 'jobs.user_id', '=', 'users.id')
                 ->get();
