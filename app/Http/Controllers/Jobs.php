@@ -41,7 +41,7 @@ class Jobs extends Controller
             $report = $request->getContent();
 
             $data = array('report'=> $request);
-            $mail = \App\Smtp::where('active', 1)->first();
+            $mail = \App\Smtp::where('id', 1)->first();
             \Config::set('MAIL_HOST', $mail->host);
             \Config::set('MAIL_PORT', $mail->port);
             \Config::set('MAIL_USERNAME', $mail->username);

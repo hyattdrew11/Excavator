@@ -34,7 +34,7 @@ class LogPasswordReset
      */
     public function handle(PasswordReset $event)
     {
-        $mail = \App\Smtp::where('active', 1)->first();
+        $mail = \App\Smtp::where('id', 1)->first();
         $user = $event->user;
         \Config::set('MAIL_HOST', $mail->host);
         \Config::set('MAIL_PORT', $mail->port);
