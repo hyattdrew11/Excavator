@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Smtp;
-
+use App\Mail\SmtpTest;
 use Mail;
 
 class SmtpController extends Controller
@@ -41,18 +41,6 @@ class SmtpController extends Controller
             $connection->encryption = 'tls';
             $connection->active = 'false';
             $connection->save();
-
-   //          $mail = \App\Smtp::where('active', 'true')->first();
-   //          \Config::set('MAIL_HOST', $mail->host);
-   //      	\Config::set('MAIL_PORT', $mail->port);
-   //      	\Config::set('MAIL_USERNAME', $mail->username);
-   //      	\Config::set('MAIL_PASSWORD', $mail->password);
-   //      	\Config::set('MAIL_FROM_ADDRESS', 'drew@thearchengine.com');
-			// \Config::set('MAIL_FROM_NAME', 'Drew Hyatt');
-   //          \Mail::send(['text'=>'smtp-check'], array($mail), function($message) {
-			// 	$message->to('drew@thearchengine.com', 'SMTP CONNECTION TEST')->subject('SMTP CONNECTION TEST');
-   //              $message->from('drew@thearchengine.com','Drew Hyatt');
-   //          });
             return response($connection, Response::HTTP_OK);
         }
         else {
@@ -95,24 +83,18 @@ class SmtpController extends Controller
     }
     public function test(Request $request)
     {
+        $user = Auth::user()->hasRole('admin');
     	if($user) {
 
-    		$toAddress = $request->to_address;
-    		$fromAddress = $request->fromAddress;
-
-            $mail = \App\Smtp::where('id', $request->id)->first();
-            
+            $mail = \App\Smtp::where('active', 'true')->first();
             \Config::set('MAIL_HOST', $mail->host);
         	\Config::set('MAIL_PORT', $mail->port);
         	\Config::set('MAIL_USERNAME', $mail->username);
         	\Config::set('MAIL_PASSWORD', $mail->password);
-        	\Config::set('MAIL_FROM_ADDRESS', 'drew@thearchengine.com');
-			\Config::set('MAIL_FROM_NAME', 'Drew Hyatt');
-            \Mail::send(['text'=>'smtp-check'], array($mail), function($message) {
-				$message->to('drew@thearchengine.com', 'SMTP CONNECTION TEST')->subject('SMTP CONNECTION TEST');
-                $message->from('drew@thearchengine.com','Drew Hyatt');
-            });
-            return response($connection, Response::HTTP_OK);
+        	\Config::set('MAIL_FROM_ADDRESS', $mail->from_address);
+			\Config::set('MAIL_FROM_NAME', $mail->from_name);
+            \Mail::to($request->email)->send(new SmtpTest());
+            return response($request, Response::HTTP_OK);
         }
         else {
             return "ERROR";

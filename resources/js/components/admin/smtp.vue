@@ -89,11 +89,12 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form autocomplete="off" @submit.prevent="addConnection" method="post">
+                    <form autocomplete="off" @submit.prevent="testConnection" method="post">
                       <div class="form-group">
                         <label>Test Recipiant Email</label>
-                        <input required v-model="test.email" type="text" class="form-control" placeholder="name" aria-label="name">
+                        <input required v-model="test.email" type="email" class="form-control" placeholder="name" aria-label="name">
                       </div>
+                       <button type="submit" class="btn btn-primary float-right">Submit</button>
                     </form>
                   </div>
                 </div>
@@ -170,8 +171,7 @@
         data() {
             return { 
                 test: { 
-                  email: null,
-                  message: null,
+                  email: null
                 },
                 connection: this.connections[0]
             }
@@ -181,7 +181,22 @@
         },
         methods: {
           testConnection(evt) { 
-            console.log(evt, this.connection)
+            evt.preventDefault()
+            this.$Progress.start()
+            let x = { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+            window.axios.post('/test/connection', this.test , { headers : x })
+              .then(({ data }) => { 
+                if(data) { 
+                  let close = document.getElementById("testConnection");
+                  close.click()
+                  this.$Progress.finish()
+                  alert("Test email sent to "+this.test.email)
+                }else {
+                  this.$Progress.fail()
+                  alert('Error sending test email.');
+                }
+              })
+              .catch(function (e) { alert(e) })
           },
           editConnection(evt) {
             evt.preventDefault()
