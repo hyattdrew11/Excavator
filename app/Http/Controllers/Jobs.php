@@ -30,8 +30,9 @@ class Jobs extends Controller
         // TRY CATCH ADD JOB TO JOB TABLE WITH USER ID
         // SEND EMAIL BASED ON JOB FORM
         // RETURN JOB TO USER 
-        $user = Auth::user()->hasRole('user');
-        if($user) {
+        $user   = Auth::user()->hasRole('user');
+        $admin  = Auth::user()->hasRole('admin');
+        if($user || $admin) {
             $user_id = Auth::user()->id;
             $Job = new Job();
             $Job->user_id = $user_id;
