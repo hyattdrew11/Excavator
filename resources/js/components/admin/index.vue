@@ -1,221 +1,238 @@
 <template>
-    <div id="admin" class="p-3">
-      <b-container>
-       <!--  <b-row class="">
-          <b-col md='4'>
-            <span>Report Count</span>
-          </b-col>
-          <b-col md='4'>
-            <span>SMTP Connection</span>
-          </b-col>
-           <b-col md='4'>
-            <span>User Count</span>
-          </b-col>
-        </b-row> -->
-      </b-container>
-
-   <!--  <div class="small">
-      <line-chart :chart-data="datacollection"></line-chart>
-      <button @click="fillData()">Randomize</button>
-    </div>
-
-        <div id="addUser" class="modal fade" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Add User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="name" aria-label="name">
-                </div>
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="email" aria-label="email">
-                </div>
-                <div class="input-group mb-3">
-                  <input type="password" class="form-control" placeholder="password" aria-label="password">
-                </div>
-                <div class="input-group mb-3">
-                  <input type="password" class="form-control" placeholder="password confirm" aria-label="password confirm">
-                </div>
-                <div class="input-group mb-3">
-                  <select class="custom-select" id="inputGroupSelect01">
-                    <option selected>Select Role...</option>
-                    <option value="1">Admin</option>
-                    <option value="2">User</option>
-                  </select>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
-
-
-          <!--   <div class="row">
-                <div class="col-md-12">
-                    <h4>Users
-                        <button   class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#addUser">Add User</button>
-                    </h4>
-                    <hr />
-                </div>
-                <div class="col-md-6 text-right">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon">Search</span>
-                      </div>
-                      <input type="text" class="form-control" placeholder="search users" aria-label="search users" aria-describedby="basic-addon">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#addUser">Add User</button>
-                </div>
-                <div class="col-md-12">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Name</th>
-                          <th scope="col">Email</th>
-                          <th scope="col">Role</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr  v-for="(x, index) in users">
-                          <th scope="row">{{ x.id }}</th>
-                          <td>{{ x.name }}</td>
-                          <td>{{ x.email }}</td>
-                          <td>{{ x.slug }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                </div>
-            </div> -->
-
-             <!-- div class="row mt-2">
-               <div class="col-md-12">
-                    <h4>SMTP Connections
-                       <button   class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#addUser">Add Connection</button>
-                    </h4>
-                    <hr />
-                </div>
-                <div class="col-md-6 text-right">
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon">Send Test</span>
-                      </div>
-                      <input type="text" class="form-control" placeholder="email address" aria-label="email address" aria-describedby="basic-addon">
-                    </div>
-                </div>
-                 <div class="col-md-6">
-                    <button   class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#addUser">Add Connection</button>
-                </div>
-                <div class="col-md-12">
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Host</th>
-                        <th scope="col">Port</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Password</th>
-                        <th scope="col">Encryption</th>
-                        <th scope="col">Active</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr  v-for="(x, index) in connections">
-                      <th scope="row">{{ x.id }}</th>
-                      <th scope="row">{{ x.name }}</th>
-                      <th scope="row">{{ x.host }}</th>
-                      <th scope="row">{{ x.port }}</th>
-                      <th scope="row">{{ x.username }}</th>
-                      <th scope="row">{{ x.password }}</th>
-                      <th scope="row">{{ x.encryption }}</th>
-                      <th scope="row">{{ x.active }}</th>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            <div class="row mt-2">
-              <div class="col-md-12">
-                <h4>Reports / Jobs</h4>
+    <div id="admin" class="mt-2">
+    <div id="">
+            <div class="col-md-12">
+                <h5>Report Selection
+                     <button @click="send()" type="submit" class="btn btn-sm btn-primary float-right">Submit</button>
+                </h5>
                 <hr />
-              </div>
-              <div class="col-md-12">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr  v-for="(x, index) in jobs">
-                      <th scope="row">{{ x.id }}</th>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-          </div> -->
+                <form>
+                <div class="report-section">
+                    <h4 class="report-section-title">Select Reports(s)</h4>
+                    <div class="form-check mb-2 choice"  v-for="(x, index) in form.reports" :class="{parent : x.child.length > 0 }"> 
+                        <input type="checkbox" class="form-check-input" v-model="x.value" @change="updateReport(index)">
+                        <label class="form-check-label">{{ x.label }}</label>
+                        <div class="child" :class="{ active : x.value }" v-if="x.value" v-for="(c, childIndex) in x.child">
+                            <input type="checkbox" class="form-check-input" v-model="c.value" @change="updateChild(index, childIndex)">
+                            <label class="form-check-label">{{ c.label }}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="report-section">
+                     <h4 class="report-section-title">Enter Key(s)</h4>
+                     <div class="form-check mb-2 choice-inline"  v-for="(x, index) in form.keys" :class="{parent : x.child.length > 0 }"> 
+                        <input type="checkbox" class="form-check-input" v-model="x.value" @change="updateReport(index)">
+                        <label class="form-check-label">{{ x.label }}</label>
+                        <div class="child" :class="{ active : x.value }" v-if="x.value" v-for="(c, childIndex) in x.child">
+                            <input type="text" class="form-check-input" v-model="c.value">
+                            <label class="form-check-label">{{ c.label }}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="report-section">
+                    <h4 class="report-section-title">Select Brand(s)</h4>
+                    <p>
+                        <span  class="btn btn-sm btn-primary" @click="selectBrands()">All</span>
+                        <span  class="btn btn-sm btn-primary" @click="deselectBrands()">None</span>
+                    </p>
+                    <div class="form-check mb-2 choice-inline"  v-for="(x, index) in form.brands"> 
+                        <input type="checkbox" class="form-check-input" v-model="x.value" @change="updateReport(index)">
+                        <label class="form-check-label">{{ x.label }}</label>
+                    </div>
+                </div>
+                 <div class="report-section">
+                    <h4 class="report-section-title">PII Section</h4>
+                    <label>{{ form.pii.label }}</label>
+                     <div class="form-check mb-2 choice">
+                        <input type="checkbox" class="form-check-input" v-model="form.pii.include.value" @change="updatePII()">
+                        <label class="form-check-label">{{ form.pii.include.label }}</label>
+                        <div v-if="form.pii.include.value">
+                            <div class="form-group">
+                                <label class="">email</label>
+                                <input type="text" class="form-control" v-model="form.pii.email">
+                            </div>
+                            <div class="form-group">
+                                 <label class="form-check-label">File Name</label>
+                                <input type="text" class="form-control" v-model="form.pii.fileName">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-check-label">Password</label>
+                                <input type="text" class="form-control" v-model="form.pii.password">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
+    </div>
+  </div>
 </template>
 
 <script>
     // import LineChart from './LineChart.js'
     export default {
         name: 'index-admin',
-        props: ['admin','users','connections', 'jobs'],
+        props: ['admin', 'user', 'users','connections', 'jobs'],
         data() {
-            return { 
-                addUser: false,
-                user: {
+            return {
+                loading: false,
+                job: {
                     name: null,
-                    email: null,
-                    password: null,
-                    confirm: null,
-                    role: null
-                },
-                connection: {
-                    name: null,
-                    host: null,
-                    port: null,
-                    username: null,
-                    password: null,
-                    active: 0,
-                },
-                datacollection: null
+                }   ,
+                form: {
+                    name: '',
+                    reports: [
+                        {
+                            value: false,
+                            label: 'Lead and Waterfall Data....Returns all records received for the requested lead with the DIG waterfall data.',
+                            child: []
+                        },
+                        {
+                            value: false,
+                            label: 'Future Events......................Returns all scheduled campaigns (solicitations) for the requested lead.',
+                            child: []
+                        },
+                        {
+                            value: false,
+                            label: 'Lead and Waterfall Data....Returns all records received for the requested lead with the DIG waterfall data.',
+                            child: [],
+                        },
+                        {
+                            value: false,
+                            label: 'Solicitation History..........Returns the campaign (solicitation) history for the requested lead.',
+                            child: [
+                                {
+                                    value: false,
+                                    label: 'Include SKU Information',
+                                }
+                            ]
+                        },
+                         {
+                            value: false,
+                            label: 'Sales and Notifications......Returns all sales and notifications records for requested lead.',
+                            child: [],
+                        }
+                    ],
+                    keys : [
+                         {
+                            value: false,
+                            label: 'SnLeadID',
+                            child: [{
+                                value: null
+                            }]
+                        },
+                        {
+                            value: false,
+                            label: 'SNLeadProductID',
+                            child: [{
+                                value: null
+                            }]
+                        },
+                        {
+                            value: false,
+                            label: 'SENSUS_OWNED_PRODUCT_ID',
+                            child: [{
+                                value: null
+                            }]
+                        },
+                        {
+                            value: false,
+                            label: 'SENSUS_PERSON_ID',
+                            child: [{
+                                value: null
+                            }]
+                        },
+                        {
+                            value: false,
+                            label: 'SolicitationID',
+                            child: [{
+                                value: null
+                            }]
+                        },
+                        {
+                            value: false,
+                            label: 'Contract Number',
+                            child: [{
+                                value: null
+                            }]
+                        },
+                    ],
+                    brands: [
+                        {
+                            value: false,
+                            label: 'Whirlpool',
+                        },
+                        {
+                            value: false,
+                            label: 'Maytag',
+                        },
+                        {
+                            value: false,
+                            label: 'Amana',
+                        },
+                        {
+                            value: false,
+                            label: 'Jenn-Air',
+                        },
+                        {
+                            value: false,
+                            label: 'KitchenAid',
+                        },
+                    ],
+                    pii : {
+                        label : 'Check the box below to include Personal Identifying Information in the report. Output will be password protected and sent to the provided email address.',
+                        include: {
+                            value: false,
+                            label: 'Include PII'
+                        },
+                        fileName: null,
+                        password: null,
+                    }
+                }
             }
         },
-        components: {},
+        mounted() {},
         methods: {
-          fillData () {
-            this.datacollection = {
-              labels: [this.getRandomInt(), this.getRandomInt()],
-              datasets: [
-                {
-                  label: 'Data One',
-                  backgroundColor: '#f87979',
-                  data: [this.getRandomInt(), this.getRandomInt()]
-                }, {
-                  label: 'Data One',
-                  backgroundColor: '#f87979',
-                  data: [this.getRandomInt(), this.getRandomInt()]
+            selectBrands() {
+                let x
+                let brands = this.form.brands
+                for(x in brands) {
+                    brands[x].value = true
                 }
-              ]
+            },
+            deselectBrands() {
+                let x
+                let brands = this.form.brands
+                for(x in brands) {
+                    brands[x].value = false
+                }
+            },
+            updateReport(index) {
+                let report = this.form.reports[index]
+                    report.value != report.value
+            },
+            updateChild(reportIndex, childIndex) {},
+            updatePII() {
+                 let pii = this.form.pii
+                 pii.include.value != pii.include.value
+            },
+            send() {
+                this.$Progress.start()
+                this.loading = true
+                let x = {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+                window.axios.post('/job',this.form , { headers : x })
+                  .then(({ data }) => { 
+                    if(data) { 
+                        alert("Report Submitted") 
+                        this.$Progress.finish()
+                        this.loading = false
+                        window.location.reload()
+                    }
+                  })
+                  .catch(function (e) { console.log(e) })
             }
-          },
-          getRandomInt () {
-            return Math.floor(Math.random() * (50 - 5 + 1)) + 5
-          }
         }
     }
 </script>
@@ -225,7 +242,7 @@
         display: inline-block;
         float: left;
         width: 85%;
-        padding: 35px 5px 5px 5px;
+        padding: 35px 5px 125px 5px;
         height: 100vh;
         overflow-y: scroll;
     }

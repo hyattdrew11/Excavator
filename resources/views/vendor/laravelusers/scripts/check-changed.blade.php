@@ -1,4 +1,5 @@
 <script type="text/javascript">
+$( document ).ready(function() {
   $('.btn-change-pw').click(function(event) {
     event.preventDefault();
     $('.pw-change-container').slideToggle(100);
@@ -20,4 +21,5 @@
       $(".btn-save").show();
     }
   }
+});
 </script>

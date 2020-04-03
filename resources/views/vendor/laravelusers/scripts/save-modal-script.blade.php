@@ -1,7 +1,7 @@
 {{-- Confirm Save Modal --}}
 
 <script type="text/javascript">
-
+$( document ).ready(function() {
   $('#confirmSave').on('show.bs.modal', function (e) {
     var message = $(e.relatedTarget).attr('data-message');
     var title = $(e.relatedTarget).attr('data-title');
@@ -13,5 +13,5 @@
   $('#confirmSave').find('.modal-footer #confirm').on('click', function(){
       $(this).data('form').submit();
   });
-
+});
 </script>
