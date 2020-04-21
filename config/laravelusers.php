@@ -64,26 +64,26 @@ return [
     // Bootstrap Tooltips
     'tooltipsEnabled'               => true,
     'enableBootstrapPopperJsCdn'    => true,
-    'bootstrapPopperJsCdn'          => 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js',
+    'bootstrapPopperJsCdn'          => '/js/bootstrap/popper.min.js',
 
     // Icons
     'fontAwesomeEnabled'            => true,
-    'fontAwesomeCdn'                => 'https://use.fontawesome.com/releases/v5.0.6/css/all.css',
+    'fontAwesomeCdn'                => '/css/fontawesome/all.css',
 
     // Extended blade options for packages app.blade.php
     'enableBootstrapCssCdn'         => true,
-    'bootstrapCssCdn'               => 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+    'bootstrapCssCdn'               => '/css/bootstrap/bootstrap.min.css',
 
     'enableAppCss'                  => true,
-    'appCssPublicFile'              => 'css/app.css',
+    'appCssPublicFile'              => '/css/app.css',
 
     'enableBootstrapJsCdn'          => true,
-    'bootstrapJsCdn'                => 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js',
+    'bootstrapJsCdn'                => '/js/bootstrap/bootstrap.min.js',
 
     'enableAppJs'                   => true,
-    'appJsPublicFile'               => 'js/app.js',
+    'appJsPublicFile'               => '/js/app.js',
 
     'enablejQueryCdn'               => true,
-    'jQueryCdn'                     => 'https://code.jquery.com/jquery-3.3.1.min.js',
+    'jQueryCdn'                     => '/js/jquery/jquery.js',
 
 ];
