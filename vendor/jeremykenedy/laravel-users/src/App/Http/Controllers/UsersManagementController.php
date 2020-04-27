@@ -133,8 +133,7 @@ class UsersManagementController extends Controller
             $user->save();
         }
 
-        $mail = \App\Smtp::where('id', 1)->first();
-        error_log($mail);
+       $mail = \App\Smtp::where('active', 'true')->first();
 
         \Config::set('MAIL_HOST', 'smtp');
         \Config::set('MAIL_HOST', $mail->host);

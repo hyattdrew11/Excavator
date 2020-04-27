@@ -1,84 +1,6 @@
 <template>
     <div id="admin" class="p-3 mt-2">
 
-<!-- 
-  ============================================================================================================================================  
--->
-            <div id="modal" class="modal fade" tabindex="-1" role="dialog">
-              <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">SMTP Connection</h5>
-                    <button id="closeConnection" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <form autocomplete="off" @submit.prevent="editConnection" method="post">
-                      <div class="row">
-
-                        <!-- <div class="col-md-6">
-                          <div class="form-group">
-                            <label>Connection Name</label>
-                            <input required v-model="connection.name" type="text" class="form-control" placeholder="name" aria-label="name">
-                          </div>
-                        </div> -->
-
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label>Host</label>
-                            <input required v-model="connection.host" type="text" class="form-control" placeholder="host" aria-label="host">
-                          </div>
-                        </div>
-
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label>Port</label>
-                            <input required v-model="connection.port" type="text" class="form-control" placeholder="port" aria-label="port">
-                          </div>
-                        </div>
-
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label>Username</label>
-                            <input required v-model="connection.username" type="text" class="form-control" placeholder="username" aria-label="username">
-                          </div>
-                        </div>
-
-                        <div class="col-md-6">
-                          <div class="form-group">
-                           <label>Password</label>
-                            <input required v-model="connection.password" type="password" class="form-control" placeholder="password" aria-label="password">
-                          </div>
-                        </div>
-
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label>From Email Address</label>
-                            <input required v-model="connection.from_address" type="email" class="form-control" placeholder="username" aria-label="username">
-                          </div>
-                        </div>
-
-                        <div class="col-md-6">
-                          <div class="form-group">
-                          <label>From Name</label>
-                            <input required v-model="connection.from_name" type="text" class="form-control" placeholder="username" aria-label="username">
-                          </div>
-                        </div>
-
-                      </div>
-
-                      <button type="submit" class="btn btn-primary float-right">Submit</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-<!-- 
-  ============================================================================================================================================  
--->
-
             <div id="testConnection" class="modal fade" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -107,50 +29,39 @@
 
              <div class="row mt-2">
                <div class="col-md-12">
-                    <h4>SMTP Connections
-                       <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#modal">Edit Connection</button>
+                    <h4>SMTP Connection
                        <button class="btn btn-sm btn-success float-right mr-1" data-toggle="modal" data-target="#testConnection">Test Connection</button>
                     </h4>
                     <hr />
-                </div>
-                <div class="col-md-6 text-right">
-                     <div class="form-group">
-                     <!--  <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon">Send Test</span>
-                      </div>
-                      <input required type="text" class="form-control" placeholder="email address" aria-label="email address" aria-describedby="basic-addon"> -->
-                    </div>
-                </div>
-                 <div class="col-md-6">
-                   <!--  <button   class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#addUser">Add Connection</button> -->
                 </div>
                 <div class="col-md-12">
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <!-- <th scope="col">Name</th> -->
                         <th scope="col">Host</th>
                         <th scope="col">Port</th>
                         <th scope="col">Username</th>
-                        <th scope="col">Password</th>
                         <th scope="col">Encryption</th>
                         <th scope="col">From Address</th>
                         <th scope="col">From Name</th>
+                        <th scope="col">Report Target Email</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr  v-for="(x, index) in connections" :key="x.id">
-                      <!-- <th scope="row">{{ x.name }}</th> -->
-                      <th scope="row">{{ x.host }}</th>
-                      <th scope="row">{{ x.port }}</th>
-                      <th scope="row">{{ x.username }}</th>
-                      <th scope="row">••••••</th>
-                      <th scope="row">{{ x.encryption }}</th>
-                      <th scope="row">{{ x.from_address }}</th>
-                      <th scope="row">{{ x.from_name }}</th>
+                      <tr>
+                        <th scope="row">{{ smtp_host }}</th>
+                        <th scope="row">{{ smtp_port }}</th>
+                        <th scope="row">{{ smtp_username }}</th>
+                        <th scope="row">{{ smtp_encryption }}</th>
+                        <th scope="row">{{ smtp_from_address }}</th>
+                        <th scope="row">{{ smtp_from_name }}</th>
+                        <th scope="row">{{ smtp_report_target }}</th>
                       </tr>
                     </tbody>
                   </table>
+                  <span>
+                    <em>Update your environment vairables to change SMTP settings.</em>
+                  </span>
                 </div>
               </div>
         </div>
@@ -160,7 +71,19 @@
     import { ToggleButton } from 'vue-js-toggle-button'
     export default {
         name: 'index-admin',
-        props: ['admin','users','connections', 'jobs'],
+        props: [
+          'admin',
+          'users',
+          'connections',
+          'jobs',
+          'smtp_host',
+          'smtp_port',
+          'smtp_username',
+          'smtp_encryption',
+          'smtp_from_address',
+          'smtp_from_name',
+          'smtp_report_target'
+        ],
         watch: { 
           connections: function(newVal, oldVal) { 
             if(newVal) {

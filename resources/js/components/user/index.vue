@@ -23,7 +23,7 @@
                         <input type="checkbox" class="form-check-input" v-model="x.value" @change="updateReport(index)">
                         <label class="form-check-label">{{ x.label }}</label>
                         <div class="child" :class="{ active : x.value }" v-if="x.value" v-for="(c, childIndex) in x.child">
-                            <input type="text" class="form-check-input" v-model="c.value">
+                            <input type="text" required class="form-check-input" v-model="c.value">
                             <label class="form-check-label">{{ c.label }}</label>
                         </div>
                     </div>
@@ -37,28 +37,6 @@
                     <div class="form-check mb-2 choice-inline"  v-for="(x, index) in form.brands"> 
                         <input type="checkbox" class="form-check-input" v-model="x.value" @change="updateReport(index)">
                         <label class="form-check-label">{{ x.label }}</label>
-                    </div>
-                </div>
-                 <div class="report-section">
-                    <h4 class="report-section-title">PII Section</h4>
-                    <label>{{ form.pii.label }}</label>
-                     <div class="form-check mb-2 choice">
-                        <input type="checkbox" class="form-check-input" v-model="form.pii.include.value" @change="updatePII()">
-                        <label class="form-check-label">{{ form.pii.include.label }}</label>
-                        <div v-if="form.pii.include.value">
-                            <div class="form-group">
-                                <label class="">email</label>
-                                <input type="text" class="form-control" v-model="form.pii.email">
-                            </div>
-                            <div class="form-group">
-                                 <label class="form-check-label">File Name</label>
-                                <input type="text" class="form-control" v-model="form.pii.fileName">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-check-label">Password</label>
-                                <input type="text" class="form-control" v-model="form.pii.password">
-                            </div>
-                        </div>
                     </div>
                 </div>
             </form>
@@ -75,7 +53,7 @@
                 loading: false,
                 job: {
                     name: null,
-                }   ,
+                },
                 form: {
                     name: '',
                     reports: [
@@ -91,7 +69,7 @@
                         },
                         {
                             value: false,
-                            label: 'Lead and Waterfall Data....Returns all records received for the requested lead with the DIG waterfall data.',
+                            label: 'Inactive Events....................Returns all potential events for requested lead that were canceled due to modeling, sales suppression, etc.',
                             child: [],
                         },
                         {
