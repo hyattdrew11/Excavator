@@ -38,7 +38,6 @@ class report extends Mailable
         $jsonDecoded = json_decode($this->report, true);
         $numItems = count($jsonDecoded);
         $i = 0;
-        //Loop through the associative array.
         // REPORTS
         foreach($jsonDecoded['reports'] as $row) {
             $string .= '"'.$row['label'].'",';
@@ -53,13 +52,14 @@ class report extends Mailable
         }
         // BRANDS
         foreach($jsonDecoded['brands'] as $row) {
-            if(++$i === $numItems) {
-                $string .= '"'.$row['label'].'",'."\n";
-            }
-            else {
-                $string .= '"'.$row['label'].'",';
-            }
+            $string .= '"'.$row['label'].'",';
         }
+         // PII HEADERS
+        $pii = $jsonDecoded['pii'];
+        $string .= '"'.$pii['include']['label'].'",';
+        $string .= '"fileName",';
+        $string .= '"password"';
+        $string .= "\n";
 
         foreach($jsonDecoded['reports'] as $row){
            
@@ -80,6 +80,14 @@ class report extends Mailable
         }
         foreach($jsonDecoded['brands'] as $row){
                 $string .= $row['value'].",";
+        }
+        $string .= '"'.$pii['include']['value'].'",';
+        $string .= '"'.$pii['fileName'].'",';
+        $string .= '"'.$pii['password'].'"';
+
+        if (is_null($pii['fileName'])){ }
+        else {
+            $fileName = $pii['fileName'].'.csv';
         }
  
         \Storage::disk('local')->put($fileName, $string);

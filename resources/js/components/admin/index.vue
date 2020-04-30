@@ -24,7 +24,7 @@
                         <input type="checkbox" class="form-check-input" v-model="x.value" @change="updateReport(index)">
                         <label class="form-check-label">{{ x.label }}</label>
                         <div class="child" :class="{ active : x.value }" v-if="x.value" v-for="(c, childIndex) in x.child">
-                            <input type="text" required class="form-check-input" v-model="c.value">
+                            <input type="number" required class="form-check-input" v-model="c.value">
                             <label class="form-check-label">{{ c.label }}</label>
                         </div>
                     </div>
@@ -38,6 +38,24 @@
                     <div class="form-check mb-2 choice-inline"  v-for="(x, index) in form.brands"> 
                         <input type="checkbox" class="form-check-input" v-model="x.value" @change="updateReport(index)">
                         <label class="form-check-label">{{ x.label }}</label>
+                    </div>
+                </div>
+                 <div class="report-section">
+                    <h4 class="report-section-title">PII Section</h4>
+                    <label>{{ form.pii.label }}</label>
+                     <div class="form-check mb-2 choice">
+                        <input type="checkbox" class="form-check-input" v-model="form.pii.include.value" @change="updatePII()">
+                        <label class="form-check-label">{{ form.pii.include.label }}</label>
+                        <div v-if="form.pii.include.value">
+                            <div class="form-group">
+                                 <label class="form-check-label">File Name</label>
+                                <input type="text" class="form-control" v-model="form.pii.fileName">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-check-label">Password</label>
+                                <input type="password" class="form-control" v-model="form.pii.password">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -70,12 +88,7 @@
                             label: 'Future Events......................Returns all scheduled campaigns (solicitations) for the requested lead.',
                             child: []
                         },
-                        {
-                            value: false,
-                            label: 'Inactive Events....................Returns all potential events for requested lead that were canceled due to modeling sales suppression etc.',
-                            child: [],
-                        },
-                        {
+                         {
                             value: false,
                             label: 'Solicitation History..........Returns the campaign (solicitation) history for the requested lead.',
                             child: [
@@ -85,11 +98,11 @@
                                 }
                             ]
                         },
-                         {
+                        {
                             value: false,
                             label: 'Sales and Notifications......Returns all sales and notifications records for requested lead.',
                             child: [],
-                        }
+                        },
                     ],
                     keys : [
                          {
@@ -158,7 +171,7 @@
                         },
                     ],
                     pii : {
-                        label : 'Check the box below to include Personal Identifying Information in the report. Output will be password protected and sent to the provided email address.',
+                        label : 'Check the box below to include Personal Identifying Information in the report.',
                         include: {
                             value: false,
                             label: 'Include PII'
