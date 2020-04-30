@@ -49,11 +49,11 @@
                         <div v-if="form.pii.include.value">
                             <div class="form-group">
                                  <label class="form-check-label">File Name</label>
-                                <input type="text" class="form-control" v-model="form.pii.fileName">
+                                <input type="text" class="form-control" v-model="form.pii.PIIFileName">
                             </div>
                             <div class="form-group">
                                 <label class="form-check-label">Password</label>
-                                <input type="password" class="form-control" v-model="form.pii.password">
+                                <input type="password" class="form-control" v-model="form.pii.PIIPassword">
                             </div>
                         </div>
                     </div>
@@ -81,19 +81,23 @@
                         {
                             value: false,
                             label: 'Lead and Waterfall Data....Returns all records received for the requested lead with the DIG waterfall data.',
+                            header: 'IncludeLeadData',
                             child: []
                         },
                         {
                             value: false,
                             label: 'Future Events......................Returns all scheduled campaigns (solicitations) for the requested lead.',
+                            header: 'IncludeFutureEvents',
                             child: []
                         },
                          {
                             value: false,
                             label: 'Solicitation History..........Returns the campaign (solicitation) history for the requested lead.',
+                            header: 'IncludeSolicitationHistory',
                             child: [
                                 {
                                     value: false,
+                                    header: 'IncludeSKUInfo',
                                     label: 'Include SKU Information',
                                 }
                             ]
@@ -101,13 +105,14 @@
                         {
                             value: false,
                             label: 'Sales and Notifications......Returns all sales and notifications records for requested lead.',
+                            header: 'IncludeSalesInfo',
                             child: [],
                         },
                     ],
                     keys : [
                          {
                             value: false,
-                            label: 'SnLeadID',
+                            label: 'SNLeadID',
                             child: [{
                                 value: null
                             }]
@@ -152,32 +157,38 @@
                         {
                             value: false,
                             label: 'Whirlpool',
+                            header: 'IncludeWhirlpoolBrand'
                         },
                         {
                             value: false,
                             label: 'Maytag',
+                            header: 'IncludeMaytagBrand'
                         },
                         {
                             value: false,
                             label: 'Amana',
+                            header: 'IncludeAmanaBrand'
                         },
                         {
                             value: false,
                             label: 'Jenn-Air',
+                            header: 'IncludeJennAirBrand'
                         },
                         {
                             value: false,
                             label: 'KitchenAid',
+                            header: 'IncludeKitchenAidBrand'
                         },
                     ],
                     pii : {
                         label : 'Check the box below to include Personal Identifying Information in the report.',
                         include: {
                             value: false,
-                            label: 'Include PII'
+                            label: 'Include PII',
+                            header: 'IncludePII'
                         },
-                        fileName: null,
-                        password: null,
+                        PIIFileName: null,
+                        PIIPassword: null,
                     }
                 }
             }

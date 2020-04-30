@@ -23,7 +23,7 @@
                         <input type="checkbox" class="form-check-input" v-model="x.value" @change="updateReport(index)">
                         <label class="form-check-label">{{ x.label }}</label>
                         <div class="child" :class="{ active : x.value }" v-if="x.value" v-for="(c, childIndex) in x.child">
-                            <input type="text" required class="form-check-input" v-model="c.value">
+                            <input type="number" required class="form-check-input" v-model="c.value">
                             <label class="form-check-label">{{ c.label }}</label>
                         </div>
                     </div>
@@ -37,6 +37,24 @@
                     <div class="form-check mb-2 choice-inline"  v-for="(x, index) in form.brands"> 
                         <input type="checkbox" class="form-check-input" v-model="x.value" @change="updateReport(index)">
                         <label class="form-check-label">{{ x.label }}</label>
+                    </div>
+                </div>
+                 <div class="report-section">
+                    <h4 class="report-section-title">PII Section</h4>
+                    <label>{{ form.pii.label }}</label>
+                     <div class="form-check mb-2 choice">
+                        <input type="checkbox" class="form-check-input" v-model="form.pii.include.value" @change="updatePII()">
+                        <label class="form-check-label">{{ form.pii.include.label }}</label>
+                        <div v-if="form.pii.include.value">
+                            <div class="form-group">
+                                 <label class="form-check-label">File Name</label>
+                                <input type="text" class="form-control" v-model="form.pii.PIIFileName">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-check-label">Password</label>
+                                <input type="password" class="form-control" v-model="form.pii.PIIPassword">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -56,42 +74,42 @@
                 },
                 form: {
                     name: '',
-                    reports: [
+                     reports: [
                         {
                             value: false,
                             label: 'Lead and Waterfall Data....Returns all records received for the requested lead with the DIG waterfall data.',
+                            header: 'IncludeLeadData',
                             child: []
                         },
                         {
                             value: false,
                             label: 'Future Events......................Returns all scheduled campaigns (solicitations) for the requested lead.',
+                            header: 'IncludeFutureEvents',
                             child: []
                         },
-                        {
-                            value: false,
-                            label: 'Inactive Events....................Returns all potential events for requested lead that were canceled due to modeling, sales suppression, etc.',
-                            child: [],
-                        },
-                        {
+                         {
                             value: false,
                             label: 'Solicitation History..........Returns the campaign (solicitation) history for the requested lead.',
+                            header: 'IncludeSolicitationHistory',
                             child: [
                                 {
                                     value: false,
+                                    header: 'IncludeSKUInfo',
                                     label: 'Include SKU Information',
                                 }
                             ]
                         },
-                         {
+                        {
                             value: false,
                             label: 'Sales and Notifications......Returns all sales and notifications records for requested lead.',
+                            header: 'IncludeSalesInfo',
                             child: [],
-                        }
+                        },
                     ],
                     keys : [
                          {
                             value: false,
-                            label: 'SnLeadID',
+                            label: 'SNLeadID',
                             child: [{
                                 value: null
                             }]
@@ -136,33 +154,38 @@
                         {
                             value: false,
                             label: 'Whirlpool',
+                            header: 'IncludeWhirlpoolBrand'
                         },
                         {
                             value: false,
                             label: 'Maytag',
+                            header: 'IncludeMaytagBrand'
                         },
                         {
                             value: false,
                             label: 'Amana',
+                            header: 'IncludeAmanaBrand'
                         },
                         {
                             value: false,
                             label: 'Jenn-Air',
+                            header: 'IncludeJennAirBrand'
                         },
                         {
                             value: false,
                             label: 'KitchenAid',
+                            header: 'IncludeKitchenAidBrand'
                         },
                     ],
                     pii : {
-                        label : 'Check the box below to include Personal Identifying Information in the report. Output will be password protected and sent to the provided email address.',
+                        label : 'Check the box below to include Personal Identifying Information in the report.',
                         include: {
                             value: false,
-                            label: 'Include PII'
+                            label: 'Include PII',
+                            header: 'IncludePII'
                         },
-                        email: null,
-                        fileName: null,
-                        password: null,
+                        PIIFileName: null,
+                        PIIPassword: null,
                     }
                 }
             }

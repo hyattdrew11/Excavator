@@ -31,19 +31,19 @@ class report extends Mailable
     {
 
         $date = time();
-        $fileName = 'Report-'.$date.'.csv';
-        $filePath = storage_path() . '/app/'.$fileName;
         $string = '';
+        $fileName = 'Report-'.$date.'.csv';  
+        $filePath = storage_path() . '/app/'.$fileName;
         //Decode the JSON and convert it into an associative array.
         $jsonDecoded = json_decode($this->report, true);
         $numItems = count($jsonDecoded);
         $i = 0;
         // REPORTS
         foreach($jsonDecoded['reports'] as $row) {
-            $string .= '"'.$row['label'].'",';
+            $string .= '"'.$row['header'].'",';
             $childCount = count($row['child']);
             if($childCount > 0) {
-                $string .= '"'.$row['child'][0]['label'].'",';
+                $string .= '"'.$row['child'][0]['header'].'",';
             }
         }
          // KEYS
@@ -52,21 +52,30 @@ class report extends Mailable
         }
         // BRANDS
         foreach($jsonDecoded['brands'] as $row) {
-            $string .= '"'.$row['label'].'",';
+            $string .= '"'.$row['header'].'",';
         }
          // PII HEADERS
         $pii = $jsonDecoded['pii'];
-        $string .= '"'.$pii['include']['label'].'",';
-        $string .= '"fileName",';
-        $string .= '"password"';
+        $string .= '"'.$pii['include']['header'].'",';
+        $string .= '"PIIFileName",';
+        $string .= '"PIIPassword"';
         $string .= "\n";
 
         foreach($jsonDecoded['reports'] as $row){
-           
-            $string .= $row['value'].",";
+           if($row['value'] == 1) {
+              $string .= "true,";
+           }
+           else {
+             $string .= "false,";
+           }
             $childCount = count($row['child']);
             if($childCount > 0) {
-                $string .= $row['child'][0]['value'].",";
+                if($row['child'][0]['value'] == 1) {
+                    $string .= "true,";
+                }
+                else {
+                    $string .= "false,";
+                }
             }
         }
         foreach($jsonDecoded['keys'] as $row){
@@ -79,24 +88,29 @@ class report extends Mailable
             }
         }
         foreach($jsonDecoded['brands'] as $row){
-                $string .= $row['value'].",";
+            if($row['value'] == 1) {
+              $string .= "true,";
+           }
+           else {
+             $string .= "false,";
+           }
         }
-        $string .= '"'.$pii['include']['value'].'",';
-        $string .= '"'.$pii['fileName'].'",';
-        $string .= '"'.$pii['password'].'"';
-
-        if (is_null($pii['fileName'])){ }
+        if($pii['include']['value'] == 1) {
+             $string .= "true,";
+         }
         else {
-            $fileName = $pii['fileName'].'.csv';
+             $string .= "true,";
         }
- 
+        $string .= '"'.$pii['PIIFileName'].'",';
+        $string .= '"'.$pii['PIIPassword'].'"';
+
         \Storage::disk('local')->put($fileName, $string);
 
         return $this->view('mail.report')
             ->with(['report' => $this->report])
             ->attach($filePath, [
                 'as' => $fileName,
-                'mime' => 'application/json',
+                'mime' => 'application/csv',
             ]);
     }
 }
