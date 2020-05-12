@@ -30,9 +30,9 @@ class report extends Mailable
     public function build()
     {
 
-        $date = time();
+        $date = date("Ymd");
         $string = '';
-        $fileName = 'Report-'.$date.'.csv';  
+        $fileName = $date.'_Excavator_Report.csv';  
         $filePath = storage_path() . '/app/'.$fileName;
         //Decode the JSON and convert it into an associative array.
         $jsonDecoded = json_decode($this->report, true);

@@ -221,19 +221,33 @@
             send() {
                 this.$Progress.start()
                 this.loading = true
-                let x = {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-                window.axios.post('/job',this.form , { headers : x })
-                  .then(({ data }) => { 
-                    if(data) { 
-                        alert("Report Submitted") 
-                        this.$Progress.finish()
-                        this.loading = false
-                        window.location.reload()
+                let a
+                let b 
+                let brands = this.form.brands
+
+                for(b in brands) {
+                    if(brands[b].value == true) {
+                        a = true
                     }
-                  })
-                  .catch(function (e) { console.log(e) })
+                }
+                if(a == true) {
+                    let x = {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                    window.axios.post('/job',this.form , { headers : x })
+                      .then(({ data }) => { 
+                        if(data) { 
+                            alert("Report Submitted") 
+                            this.$Progress.finish()
+                            this.loading = false
+                            window.location.reload()
+                        }
+                      })
+                      .catch(function (e) { console.log(e) })
+                }
+                else {
+                    alert("Please select at least one brand.")
+                }
             }
         }
     }
