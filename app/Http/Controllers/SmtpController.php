@@ -61,7 +61,7 @@ class SmtpController extends Controller
             $connection->from_address = $request->from_address;
             $connection->from_name = $request->from_name;
             $connection->encryption = 'tls';
-            $connection->active = 'true';
+            $connection->active = 1;
             $connection->update();
             return response($connection, Response::HTTP_OK);
         }
@@ -86,7 +86,7 @@ class SmtpController extends Controller
         $user = Auth::user()->hasRole('admin');
     	if($user) {
 
-            $mail = \App\Smtp::where('active', 'true')->first();
+            $mail = \App\Smtp::where('active', 1)->first();
             \Config::set('MAIL_HOST', $mail->host);
         	\Config::set('MAIL_PORT', $mail->port);
         	\Config::set('MAIL_USERNAME', $mail->username);

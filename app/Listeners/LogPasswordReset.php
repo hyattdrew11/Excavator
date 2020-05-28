@@ -34,7 +34,7 @@ class LogPasswordReset
      */
     public function handle(PasswordReset $event)
     {
-        $mail = \App\Smtp::where('id', 1)->first();
+        $mail = \App\Smtp::where('active', 1)->first();
         $user = $event->user;
         \Config::set('MAIL_HOST', $mail->host);
         \Config::set('MAIL_PORT', $mail->port);
@@ -43,7 +43,6 @@ class LogPasswordReset
         \Config::set('MAIL_FROM_ADDRESS', 'drew@thearchengine.com');
         \Config::set('MAIL_FROM_NAME', 'Drew Hyatt');
         \Mail::to('drew@thearchengine.com')->send(new UserActivated($user));
-        error_log("SUCCESSFUL PASSWORD RESET");
         return redirect('home');
     }
 }

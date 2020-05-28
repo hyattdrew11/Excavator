@@ -133,15 +133,14 @@ class UsersManagementController extends Controller
             $user->save();
         }
 
-       $mail = \App\Smtp::where('active', 'true')->first();
-
-        \Config::set('MAIL_HOST', 'smtp');
+       $mail = \App\Smtp::where('active', 1)->first();
         \Config::set('MAIL_HOST', $mail->host);
         \Config::set('MAIL_PORT', $mail->port);
         \Config::set('MAIL_USERNAME', $mail->username);
         \Config::set('MAIL_PASSWORD', $mail->password);
-        \Config::set('MAIL_FROM_ADDRESS', 'drew@thearchengine.com');
-        \Config::set('MAIL_FROM_NAME', 'Data Intelligence Group');
+        \Config::set('MAIL_FROM_ADDRESS', $mail->from_address);
+        \Config::set('MAIL_FROM_NAME', $mail->from_name);
+
 
 
             \Mail::to($user->email)->send(new Welcome($user));

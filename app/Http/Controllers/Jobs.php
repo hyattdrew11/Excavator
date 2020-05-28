@@ -42,8 +42,18 @@ class Jobs extends Controller
             $report = $request->getContent();
 
             $data = array('report'=> $request);
-           
+            
+            $mail = \App\Smtp::where('active', 1)->first();
+            \Config::set('MAIL_HOST', $mail->host);
+            \Config::set('MAIL_PORT', $mail->port);
+            \Config::set('MAIL_USERNAME', $mail->username);
+            \Config::set('MAIL_PASSWORD', $mail->password);
+            \Config::set('MAIL_FROM_ADDRESS', $mail->from_address);
+            \Config::set('MAIL_FROM_NAME', $mail->from_name);
+            
             \Mail::to("drew@thearchengine.com")->send(new report($report));
+
+
 
             return response($request, Response::HTTP_OK);
         }
