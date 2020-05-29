@@ -60,6 +60,7 @@ class SmtpController extends Controller
             $connection->password = $request->password;
             $connection->from_address = $request->from_address;
             $connection->from_name = $request->from_name;
+            $connection->target_email = $request->target_email;
             $connection->encryption = 'tls';
             $connection->active = 1;
             $connection->update();
@@ -87,12 +88,6 @@ class SmtpController extends Controller
     	if($user) {
 
             $mail = \App\Smtp::where('active', 1)->first();
-            \Config::set('MAIL_HOST', $mail->host);
-        	\Config::set('MAIL_PORT', $mail->port);
-        	\Config::set('MAIL_USERNAME', $mail->username);
-        	\Config::set('MAIL_PASSWORD', $mail->password);
-        	\Config::set('MAIL_FROM_ADDRESS', $mail->from_address);
-			\Config::set('MAIL_FROM_NAME', $mail->from_name);
             \Mail::to($request->email)->send(new SmtpTest());
             return response($request, Response::HTTP_OK);
         }

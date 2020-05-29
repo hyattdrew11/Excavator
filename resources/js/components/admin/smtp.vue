@@ -64,6 +64,13 @@
                           </div>
                         </div>
 
+                         <div class="col-md-6">
+                          <div class="form-group">
+                          <label>Report Target Email</label>
+                            <input required v-model="connection.target_email" type="text" class="form-control" placeholder="username" aria-label="username">
+                          </div>
+                        </div>
+
                       </div>
 
                       <button type="submit" class="btn btn-primary float-right">Submit</button>
@@ -115,6 +122,7 @@
                         <th scope="col">Host</th>
                         <th scope="col">Port</th>
                         <th scope="col">Username</th>
+                        <th scope="col">Password</th>
                         <th scope="col">Encryption</th>
                         <th scope="col">From Address</th>
                         <th scope="col">From Name</th>
@@ -131,6 +139,7 @@
                       <th scope="row">{{ x.encryption }}</th>
                       <th scope="row">{{ x.from_address }}</th>
                       <th scope="row">{{ x.from_name }}</th>
+                      <th scope="row">{{ x.target_email }}</th>
                       </tr>
                     </tbody>
                   </table>
