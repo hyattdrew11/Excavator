@@ -16,10 +16,11 @@ class report extends Mailable
      *
      * @return void
      */
-    public function __construct($report)
+    public function __construct($report, $subject)
     {
         // $this->user = $user;
         $this->report = $report;
+        $this->subject = $subject;
     }
 
     /**
@@ -106,11 +107,14 @@ class report extends Mailable
 
         \Storage::disk('local')->put($fileName, $string);
 
-        return $this->view('mail.report')
-            ->with(['report' => $this->report])
-            ->attach($filePath, [
-                'as' => $fileName,
-                'mime' => 'application/csv',
-            ]);
+
+
+        return $this->subject($this->subject)
+                    ->view('mail.report')
+                    ->with(['report' => $this->report])
+                    ->attach($filePath, [
+                        'as' => $fileName,
+                        'mime' => 'application/csv',
+                    ]);
     }
 }

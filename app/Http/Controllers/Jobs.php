@@ -45,9 +45,9 @@ class Jobs extends Controller
             
             $mail = \App\Smtp::where('active', 1)->first();
 
-            \Mail::to($mail->target_email)->send(new report($report));
+            $subject = $mail->subject;
 
-
+            \Mail::to($mail->target_email)->send(new report($report, $subject));
 
             return response($request, Response::HTTP_OK);
         }

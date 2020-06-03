@@ -59,6 +59,7 @@ class SmtpController extends Controller
             $connection->username = $request->username;
             $connection->password = $request->password;
             $connection->from_address = $request->from_address;
+            $connection->subject = $request->subject;
             $connection->from_name = $request->from_name;
             $connection->target_email = $request->target_email;
             $connection->encryption = 'tls';
@@ -86,9 +87,11 @@ class SmtpController extends Controller
     {
         $user = Auth::user()->hasRole('admin');
     	if($user) {
-
+            var_dump($request);
             $mail = \App\Smtp::where('active', 1)->first();
-            \Mail::to($request->email)->send(new SmtpTest());
+
+            \Mail::to($request->email)->send(new SmtpTest($request));
+
             return response($request, Response::HTTP_OK);
         }
         else {

@@ -16,9 +16,10 @@ class SmtpTest extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
         //
+        $this->data = $data;
     }
 
     /**
@@ -28,6 +29,6 @@ class SmtpTest extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.SmtpTest');
+        return $this->subject($this->data->subject)->view('mail.SmtpTest');
     }
 }

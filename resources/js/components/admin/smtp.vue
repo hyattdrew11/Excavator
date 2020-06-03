@@ -59,6 +59,13 @@
 
                         <div class="col-md-6">
                           <div class="form-group">
+                            <label>Email Subject</label>
+                            <input required v-model="connection.subject" type="text" class="form-control" placeholder="username" aria-label="username">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
                           <label>From Name</label>
                             <input required v-model="connection.from_name" type="text" class="form-control" placeholder="username" aria-label="username">
                           </div>
@@ -92,6 +99,10 @@
                   </div>
                   <div class="modal-body">
                     <form autocomplete="off" @submit.prevent="testConnection" method="post">
+                       <div class="form-group">
+                        <label>Test Email Subject</label>
+                        <input required v-model="test.subject" type="text" class="form-control" placeholder="name" aria-label="name">
+                      </div>
                       <div class="form-group">
                         <label>Test Recipiant Email</label>
                         <input required v-model="test.email" type="email" class="form-control" placeholder="name" aria-label="name">
@@ -116,7 +127,7 @@
                     <hr />
                 </div>
                 <div class="col-md-12">
-                  <table class="table table-bordered">
+                  <table id="smtp-table" class="table table-bordered">
                     <thead>
                       <tr>
                         <th scope="col">Host</th>
@@ -125,6 +136,7 @@
                         <th scope="col">Password</th>
                         <th scope="col">Encryption</th>
                         <th scope="col">From Address</th>
+                        <th scope="col">Subject</th>
                         <th scope="col">From Name</th>
                         <th scope="col">Report Target Email</th>
                       </tr>
@@ -138,6 +150,7 @@
                       <th scope="row">••••••</th>
                       <th scope="row">{{ x.encryption }}</th>
                       <th scope="row">{{ x.from_address }}</th>
+                      <th scope="row">{{ x.subject }}</th>
                       <th scope="row">{{ x.from_name }}</th>
                       <th scope="row">{{ x.target_email }}</th>
                       </tr>
@@ -178,7 +191,8 @@
         data() {
             return { 
                 test: { 
-                  email: null
+                  email: null,
+                  subject: ''
                 },
                 connection: this.connections[0]
             }
@@ -227,4 +241,16 @@
         }
     }
 </script>
-<style lang="scss"></style>
+<style scoped lang="scss">
+  #smtp-table th {
+    font-size: 12px;
+  }
+   #smtp-table td {
+    font-size: 12px;
+    padding: 5px 15px 5px 15px;
+    vertical-align: middle;
+  }
+  #smtp-table td:last-child {
+     width: 300px;
+  }
+</style>
