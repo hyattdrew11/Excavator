@@ -73,13 +73,37 @@
                 </div>
             </div>
         </nav>
-
+        @guest
         <main class="">
             <div class="container p-5 m-3">
                  <div class="row">
                  </div>
             </div>
         </main>
+         @else
+           <main class="">
+            <div class="container-fluid text-center">
+                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="auth-message m-5 p-5">
+                           <!--  <h4>
+                                You do not currently have access to any apps here.  Contact the administrator for assistance or to request access.
+                            </h4> -->
+                             <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x light-gray"></i>
+                                <i class="fa fa-lock fa-stack-1x white"></i>
+                              </span>
+                                <p class="text-center tx-14 wt-500">
+                                    You do not currently have access to any apps here. <br />
+                                    Contact the administrator for assistance or to request access.
+                                </p>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </main>
+
+         @endguest
     </div>
 </body>
 </html>

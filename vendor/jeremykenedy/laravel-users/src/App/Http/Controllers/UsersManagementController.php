@@ -13,6 +13,9 @@ use App\Mail\Welcome;
 use Mail;
 
 
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Password;
+
 class UsersManagementController extends Controller
 {
     private $_authEnabled;
@@ -133,7 +136,12 @@ class UsersManagementController extends Controller
             $user->save();
         }
 
-        \Mail::to($user->email)->send(new Welcome($user));
+        $credentials = ['email' => $user->email];
+        $response = Password::sendResetLink($credentials, function (Message $message) {
+            $message->subject($this->getEmailSubject());
+        });
+
+        // \Mail::to($user->email)->send(new Welcome($user));
 
             // \Mail::send(['text'=>'smtp-check'], array($mail), function($message) {
             //     $message->to('drew@thearchengine.com', 'Welcome to excavator app.')->subject('Welcome to DIG Excator.');
