@@ -60,6 +60,7 @@ class report extends Mailable
         $string .= '"'.$pii['include']['header'].'",';
         $string .= '"PIIFileName",';
         $string .= '"PIIPassword"';
+        $string .= '"Requester"';
         $string .= "\n";
 
         foreach($jsonDecoded['reports'] as $row){
@@ -103,7 +104,8 @@ class report extends Mailable
              $string .= "true,";
         }
         $string .= '"'.$pii['PIIFileName'].'",';
-        $string .= '"'.$pii['PIIPassword'].'"';
+        $string .= '"'.$pii['PIIPassword'].'",';
+        $string .= '"'.$jsonDecoded['email'].'"';
 
         \Storage::disk('local')->put($fileName, $string);
 

@@ -65,7 +65,7 @@
 <script>
     export default {
         name: "efrom",
-        props: [],
+        props: ['user'],
         data() {
             return {
                 loading: false,
@@ -74,7 +74,8 @@
                 },
                 form: {
                     name: '',
-                     reports: [
+                    email: this.user.email,
+                    reports: [
                         {
                             value: false,
                             label: 'Lead and Waterfall Data....Returns all records received for the requested lead with the DIG waterfall data.',
@@ -190,7 +191,9 @@
                 }
             }
         },
-        mounted() {},
+        mounted() {
+            console.log(this.form.email)
+        },
         methods: {
             selectBrands() {
                 let x

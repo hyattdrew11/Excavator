@@ -77,6 +77,7 @@
                 }   ,
                 form: {
                     name: '',
+                    email: this.user.email,
                      reports: [
                         {
                             value: false,
@@ -193,7 +194,9 @@
                 }
             }
         },
-        mounted() {},
+        mounted() {
+             console.log(this.form.email)
+        },
         methods: {
             selectBrands() {
                 let x
