@@ -23,7 +23,7 @@
                         <input type="checkbox" class="form-check-input" v-model="x.value" @change="updateReport(index)">
                         <label class="form-check-label">{{ x.label }}</label>
                         <div class="child" :class="{ active : x.value }" v-if="x.value" v-for="(c, childIndex) in x.child">
-                            <input type="number" required class="form-check-input" v-model="c.value">
+                            <input type="text" required class="form-check-input" v-model="c.value">
                             <label class="form-check-label">{{ c.label }}</label>
                         </div>
                     </div>
@@ -57,6 +57,8 @@
                         </div>
                     </div>
                 </div>
+                <hr />
+                <button @click="send()" type="submit" class="btn btn-sm btn-primary float-right">Submit</button>
             </form>
         </div>
     </div>
@@ -219,8 +221,8 @@
                  pii.include.value != pii.include.value
             },
             send() {
-                this.$Progress.start()
                 this.loading = true
+                this.$Progress.start()
                 let a
                 let b 
                 let brands = this.form.brands
@@ -239,8 +241,10 @@
                         if(data) { 
                             alert("Report Submitted") 
                             this.$Progress.finish()
-                            this.loading = false
-                            window.location.reload()
+                            setTimeout(function(){  
+                                this.loading = false 
+                                window.location.reload()
+                            }, 5000);
                         }
                       })
                       .catch(function (e) { console.log(e) })

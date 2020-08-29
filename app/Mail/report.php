@@ -59,7 +59,7 @@ class report extends Mailable
         $pii = $jsonDecoded['pii'];
         $string .= '"'.$pii['include']['header'].'",';
         $string .= '"PIIFileName",';
-        $string .= '"PIIPassword"';
+        $string .= '"PIIPassword",';
         $string .= '"Requester"';
         $string .= "\n";
 
