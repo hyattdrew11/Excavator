@@ -83,7 +83,7 @@ class report extends Mailable
         foreach($jsonDecoded['keys'] as $row){
             $childCount = count($row['child']);
             if($childCount > 0) {
-                $string .= $row['child'][0]['value'].",";
+                $string .= '"' . $row['child'][0]['value'].'",';
             }
             else {
                 $string .= ",";

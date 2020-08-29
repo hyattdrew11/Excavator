@@ -137,11 +137,15 @@ class UsersManagementController extends Controller
         }
 
         $credentials = ['email' => $user->email];
-        $response = Password::sendResetLink($credentials, function (Message $message) {
-            $message->subject($this->getEmailSubject());
+        // $response = Password::sendResetLink($credentials, function (Message $message) {
+        //     $message->subject($this->getEmailSubject());
+        // });
+        $data = $user->email;
+        // $response = \Mail::to($user->email)->send(new Welcome($user));
+        $response  = Mail::send('mail.welcome', array($data) , function($message) use($data) {
+            $message->to($data);
+            $message->subject('Welcome to the DIG Excavator.');
         });
-
-        // \Mail::to($user->email)->send(new Welcome($user));
 
             // \Mail::send(['text'=>'smtp-check'], array($mail), function($message) {
             //     $message->to('drew@thearchengine.com', 'Welcome to excavator app.')->subject('Welcome to DIG Excator.');

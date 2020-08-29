@@ -91,7 +91,7 @@
       .footer {
         clear: both;
         margin-top: 10px;
-        /*text-align: center;*/
+        text-align: center;
         width: 100%; 
       }
         .footer td,
@@ -100,7 +100,7 @@
         .footer a {
           color: #999999;
           font-size: 12px;
-          /*text-align: center;*/ 
+          /*text-align: center; */
       }
 
       /* -------------------------------------
@@ -160,7 +160,7 @@
        .btn table td {
             background-color: #ffffff;
             border-radius: 5px;
-            /*text-align: center;*/
+            text-align: center;
             margin: 35px;
             border: 2px solid #FFF;
         }
@@ -202,7 +202,7 @@
       }
 
       .align-center {
-        /*text-align: center;*/ 
+        text-align: center; 
       }
 
       .align-right {
