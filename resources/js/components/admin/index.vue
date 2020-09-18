@@ -254,6 +254,7 @@
                 }
                 else {
                     alert("Please select at least one brand.")
+                    this.loading = false
                 }
             }
         }
