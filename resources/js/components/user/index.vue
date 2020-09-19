@@ -1,12 +1,14 @@
 <template>
         <div id="main-form" :class="{loading : loading}">
+             <i id="loader" v-if="loading" class="fa fa-spinner fa-pulse fa-3x fa-fw" ></i>
+    <div id="" :class="{loading : loading}">
             <div class="col-md-12">
-                <h5>Report Selection
-                     <button @click="send()" type="submit" class="btn btn-sm btn-primary float-right">Submit</button>
+                <h5 id="user-report-header">Report Selection
+                    <button :disabled="lockSubmit" @click="send()" type="submit" class="btn btn-sm btn-primary float-right">Submit</button>
                 </h5>
-                <hr />
+                <!-- <hr /> -->
                 <form>
-                <div class="report-section">
+                <div class="user-report-section">
                     <h4 class="report-section-title">Select Reports(s)</h4>
                     <div class="form-check mb-2 choice"  v-for="(x, index) in form.reports" :class="{parent : x.child.length > 0 }"> 
                         <input type="checkbox" class="form-check-input" v-model="x.value" @change="updateReport(index)">
@@ -17,7 +19,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="report-section">
+                <div class="user-report-section">
                      <h4 class="report-section-title">Enter Key(s)</h4>
                      <div class="form-check mb-2 choice-inline"  v-for="(x, index) in form.keys" :class="{parent : x.child.length > 0 }"> 
                         <input type="checkbox" class="form-check-input" v-model="x.value" @change="updateReport(index)">
@@ -28,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="report-section">
+                <div class="user-report-section">
                     <h4 class="report-section-title">Select Brand(s)</h4>
                     <p>
                         <span  class="btn btn-sm btn-primary" @click="selectBrands()">All</span>
@@ -39,7 +41,7 @@
                         <label class="form-check-label">{{ x.label }}</label>
                     </div>
                 </div>
-                 <div class="report-section">
+                 <div class="user-report-section">
                     <h4 class="report-section-title">PII Section</h4>
                     <label>{{ form.pii.label }}</label>
                      <div class="form-check mb-2 choice">
@@ -52,15 +54,17 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-check-label">Password</label>
-                                <input type="password" class="form-control" v-model="form.pii.PIIPassword">
+                                <input type="password"  autocomplete="password" class="form-control" v-model="form.pii.PIIPassword">
                             </div>
                         </div>
                     </div>
+                     <button :disabled="lockSubmit" @click="send()" type="submit" class="btn btn-sm btn-primary">Submit</button>
                 </div>
                 <hr />
-                <button @click="send()" type="submit" class="btn btn-sm btn-primary float-right">Submit</button>
+                <!-- <button @click="send()" type="submit" class="btn btn-sm btn-primary float-right">Submit</button> -->
             </form>
         </div>
+    </div>
     </div>
 </template>
 
@@ -70,6 +74,7 @@
         props: ['user'],
         data() {
             return {
+                lockSubmit: false,
                 loading: false,
                 job: {
                     name: null,
@@ -194,7 +199,7 @@
             }
         },
         mounted() {
-            console.log(this.form.email)
+            window.scrollTo(0,0);
         },
         methods: {
             selectBrands() {
@@ -219,93 +224,67 @@
             updatePII() {
                  let pii = this.form.pii
                  pii.include.value != pii.include.value
+                 setTimeout(function(){  window.scrollTo(0,document.body.scrollHeight);  }, 500);
             },
             send() {
-                this.loading = true
-                this.$Progress.start()
-                let a
-                let b 
-                let brands = this.form.brands
+                let vm = this
+                let c = confirm("Would you like to submit this report? Click ok to continue.")
+                if(c) {
+                    this.lockSubmit = true
+                    this.$Progress.start()
+                    this.loading = true
+                    let a
+                    let b 
+                    let brands = this.form.brands
 
-                for(b in brands) {
-                    if(brands[b].value == true) {
-                        a = true
-                    }
-                }
-                if(a == true) {
-                    let x = {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                    window.axios.post('/job',this.form , { headers : x })
-                      .then(({ data }) => { 
-                        if(data) { 
-                            alert("Report Submitted") 
-                            this.$Progress.finish()
-                            setTimeout(function(){  
-                                this.loading = false 
-                                window.location.reload()
-                            }, 5000);
+                    for(b in brands) {
+                        if(brands[b].value == true) {
+                            a = true
                         }
-                      })
-                      .catch(function (e) { console.log(e) })
+                    }
+                    for(b in this.form.keys) {
+                        let fld = this.form.keys[b].child[0].value
+                        if(fld != null && fld.length > 0) {
+                            console.log(fld)
+                            let rmCommas = fld.replace(/\s+/g, '');
+                            this.form.keys[b].child[0].value = rmCommas
+                            console.log(rmCommas)
+                        }
+                    }
+                    if(a == true) {
+                        let x = {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                        window.axios.post('/job',this.form , { headers : x })
+                          .then(({ data }) => { 
+                            if(data) { 
+                                let cp = confirm("Report Submitted. Click ok to start a new report.")
+                                if(cp) {
+                                    window.location.href = "/login"
+                                }
+                                this.$Progress.finish()
+                                this.loading = false 
+                                this.lockSubmit = false
+                            }
+                          })
+                          .catch(function (e) { 
+                            console.log(e) 
+                            alert("There was a problem submitting the report. Please check your internet connection and tray again.")
+                            vm.loading = false
+                            vm.$Progress.finish()
+                            vm.lockSubmit = false
+                        })
+                    }
+                    else {
+                        alert("Please select at least one brand.")
+                        this.loading = false
+                        this.$Progress.finish()
+                        this.lockSubmit = false
+                    }
                 }
-                else {
-                    alert("Please select at least one brand.")
-                    this.loading = false
-                }
+                else {}
             }
         }
     }
 </script>
-
-<style lang="scss">
-    body {
-        height: 100vh;
-        overflow-y: hidden;
-    }
-    body * {
-        // color: #666;
-    }
-    #main-form {
-        display: inline-block;
-        float: left;
-        width: 100%;
-        padding: 35px 5px 100px 5px;
-        height: 100vh;
-        overflow-y: scroll;
-    }
-    .choice {
-        min-height: 30px;
-        width: 100%;
-    }
-    .choice-inline { 
-        width: 50%;
-        display: inline-block;
-    }
-    .child {
-        display: none;
-        padding-left: 45px;
-        border-left: 3px solid #EEE;
-    }
-    .child.active {
-        display: block;
-        margin-bottom: 15px;
-    }
-    .report-section-title {
-        font-size: 16px;
-        background: #FFF;
-        position: absolute;
-        min-width: 130px;
-        left: 46px;
-        top: -11px;
-        text-align: center;
-        // border: 1px solid #000;
-        padding: 3px;
-    }
-    .report-section {
-        position: relative;
-        border: 1px solid #eee;
-        padding: 30px 10px 10px 45px;
-        margin: 15px 0px 35px 0px;
-    }
-</style>
+<style lang="scss"></style>

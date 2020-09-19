@@ -94,3 +94,80 @@
 .bg-2           { background-color: #a9d3ff}
 .bg-3           { background-color: orange}
 .bg-4           { background-color: #174c9a }
+
+#loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 10000;
+  background-color: #FFF;
+  color: #032f42;
+}
+
+#report-header {
+    // position: fixed;
+    // top: 58px;
+    // width: 82%;
+    // z-index: 1000;
+    // background-color: #FFF;
+    // display: block;
+    // padding: 35px 0px 14px 0px;
+    // border-bottom: 1px solid #ccc;
+        margin-top: 0px;
+        padding: 5px 15px;
+        margin-bottom: 20px;
+}
+.report-section {
+        position: relative;
+        border: 1px solid #eee;
+        padding: 30px 10px 10px 45px;
+        margin: 10px 0px 35px 0px;
+}
+
+
+
+
+
+body {
+        height: 100vh;
+        overflow-y: hidden;
+    }
+    body * {
+        // color: #666;
+    }
+    #main-form {
+        display: inline-block;
+        float: left;
+        width: 100%;
+        padding: 35px 5px 100px 5px;
+        height: 100vh;
+        overflow-y: scroll;
+    }
+    .choice {
+        min-height: 30px;
+        width: 100%;
+    }
+    .choice-inline { 
+        width: 50%;
+        display: inline-block;
+    }
+    .child {
+        display: none;
+        padding-left: 45px;
+        border-left: 3px solid #EEE;
+    }
+    .child.active {
+        display: block;
+        margin-bottom: 15px;
+    }
+    #user-report-header {
+        // margin-top: 28px;
+        padding: 0px;
+        margin-bottom: 20px;
+    }
+    .user-report-section {
+        position: relative;
+        border: 1px solid #eee;
+        padding: 30px 10px 10px 45px;
+        margin: 10px 0px 5px 0px;
+    }

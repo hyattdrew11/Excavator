@@ -1,11 +1,12 @@
 <template>
     <div id="admin" class="mt-2">
+    <i id="loader" v-if="loading" class="fa fa-spinner fa-pulse fa-3x fa-fw" ></i>
     <div id="" :class="{loading : loading}">
             <div class="col-md-12">
-                <h5>Report Selection
-                     <button @click="send()" type="submit" class="btn btn-sm btn-primary float-right">Submit</button>
+                <h5 id="report-header">Report Selection
+                    <button :disabled="lockSubmit" @click="send()" type="submit" class="btn btn-sm btn-primary float-right">Submit</button>
                 </h5>
-                <hr />
+                <!-- <hr /> -->
                 <form>
                 <div class="report-section">
                     <h4 class="report-section-title">Select Reports(s)</h4>
@@ -53,13 +54,14 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-check-label">Password</label>
-                                <input type="password" class="form-control" v-model="form.pii.PIIPassword">
+                                <input type="password"  autocomplete="password" class="form-control" v-model="form.pii.PIIPassword">
                             </div>
                         </div>
                     </div>
+                     <button :disabled="lockSubmit" @click="send()" type="submit" class="btn btn-sm btn-primary">Submit</button>
                 </div>
                 <hr />
-                <button @click="send()" type="submit" class="btn btn-sm btn-primary float-right">Submit</button>
+                <!-- <button @click="send()" type="submit" class="btn btn-sm btn-primary float-right">Submit</button> -->
             </form>
         </div>
     </div>
@@ -73,6 +75,7 @@
         props: ['admin', 'user', 'users','connections', 'jobs'],
         data() {
             return {
+                lockSubmit: false,
                 loading: false,
                 job: {
                     name: null,
@@ -197,7 +200,7 @@
             }
         },
         mounted() {
-             console.log(this.form.email)
+            window.scrollTo(0,0);
         },
         methods: {
             selectBrands() {
@@ -222,40 +225,66 @@
             updatePII() {
                  let pii = this.form.pii
                  pii.include.value != pii.include.value
+                setTimeout(function(){  window.scrollTo(0,document.body.scrollHeight);  }, 500);
+
             },
             send() {
-                this.$Progress.start()
-                this.loading = true
-                let a
-                let b 
-                let brands = this.form.brands
+                let vm = this
+                let c = confirm("Would you like to submit this report? Click ok to continue.")
+                if(c) {
+                    this.lockSubmit = true
+                    this.$Progress.start()
+                    this.loading = true
+                    let a
+                    let b 
+                    let brands = this.form.brands
 
-                for(b in brands) {
-                    if(brands[b].value == true) {
-                        a = true
-                    }
-                }
-                if(a == true) {
-                    let x = {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                    window.axios.post('/job',this.form , { headers : x })
-                      .then(({ data }) => { 
-                        if(data) { 
-                            alert("Report Submitted") 
-                            this.$Progress.finish()
-                            setTimeout(function(){  
-                                this.loading = false 
-                                window.location.reload()
-                            }, 5000);
+                    for(b in brands) {
+                        if(brands[b].value == true) {
+                            a = true
                         }
-                      })
-                      .catch(function (e) { console.log(e) })
+                    }
+                    for(b in this.form.keys) {
+                        let fld = this.form.keys[b].child[0].value
+                        if(fld != null && fld.length > 0) {
+                            console.log(fld)
+                            let rmCommas = fld.replace(/\s+/g, '');
+                            this.form.keys[b].child[0].value = rmCommas
+                            console.log(rmCommas)
+                        }
+                    }
+                    if(a == true) {
+                        let x = {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                        window.axios.post('/job',this.form , { headers : x })
+                          .then(({ data }) => { 
+                            if(data) { 
+                                let cp = confirm("Report Submitted. Click ok to start a new report.")
+                                if(cp) {
+                                    window.location.reload()
+                                }
+                                this.$Progress.finish()
+                                this.loading = false 
+                                this.lockSubmit = false
+                            }
+                          })
+                          .catch(function (e) { 
+                            console.log(e) 
+                            alert("There was a problem submitting the report. Please check your internet connection and tray again.")
+                            vm.loading = false
+                            vm.$Progress.finish()
+                            vm.lockSubmit = false
+                        })
+                    }
+                    else {
+                        alert("Please select at least one brand.")
+                        this.loading = false
+                        this.$Progress.finish()
+                        this.lockSubmit = false
+                    }
                 }
-                else {
-                    alert("Please select at least one brand.")
-                    this.loading = false
-                }
+                else {}
             }
         }
     }
@@ -284,4 +313,25 @@
       max-width: 600px;
       margin:  150px auto;
     }
+//     #report-header {
+//     position: fixed;
+//     top: 75px;
+//     width: 81%;
+//     height: 50px;
+//     z-index: 1000;
+//     /* height: 100%; */
+//     background-color: #FFF;
+//     display: block;
+// }
+//     .report-section {
+//         position: relative;
+//         border: 1px solid #eee;
+//         padding: 30px 10px 10px 45px;
+//         margin: 80px 0px 35px 0px;
+//     }
+    //   .submit-btn {
+    //     position: fixed;
+    //     top: 100px;
+    //     right: 35px;
+    // }
 </style>
