@@ -57,12 +57,12 @@
                     <h4 class="report-section-title">Other Options</h4>
                     <label>{{ form.pii.label }}</label>
                      <div class="form-check mb-2 choice">
-                        <input type="checkbox" class="form-check-input" v-model="form.pii.include.value" @change="updatePII()">
-                        <label class="form-check-label">{{ form.pii.include.label }}</label>
                         <div class="form-group">
                                  <label class="form-check-label">File Name (Optional)</label>
                                 <input type="text" class="form-control" v-model="form.pii.PIIFileName">
                             </div>
+                        <input type="checkbox" class="form-check-input" v-model="form.pii.include.value" @change="updatePII()">
+                        <label class="form-check-label">{{ form.pii.include.label }}</label>
                         <div v-if="form.pii.include.value">
                             <div class="form-group">
                                 <label class="form-check-label">Password<sup>*</sup></label>
