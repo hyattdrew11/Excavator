@@ -117,7 +117,6 @@
             <script src="{{ asset(config('laravelusers.appJsPublicFile')) }}"></script>
         @endif
         @include('laravelusers::scripts.toggleText')
-
         @yield('template_scripts')
 
     </body>

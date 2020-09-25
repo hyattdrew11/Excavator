@@ -59,6 +59,7 @@ class ResetPassword extends Notification
      */
     public function toMail($notifiable)
     {
+         \Log::error($notifiable);
         if (static::$toMailCallback) {
             return call_user_func(static::$toMailCallback, $notifiable, $this->token);
         }
@@ -71,13 +72,28 @@ class ResetPassword extends Notification
                 'email' => $notifiable->getEmailForPasswordReset(),
             ], false));
         }
-
-        return (new MailMessage)
-            ->subject(Lang::get('“Account Activation/Password Reset Request'))
-            ->line(Lang::get('You are receiving this email because we’ve created a new account for you or you have requested a password reset.  To get started, you’ll need to activate your account by setting a password.'))
-            ->action(Lang::get('Set Password'), $url)
+        if($notifiable->created_at == $notifiable->updated_at) {
+            \Log::error("ACTIVATE ACCOUNT");
+            \Log::error($notifiable->created_at);
+            \Log::error($notifiable->updated_at);
+            return (new MailMessage)
+                ->subject(Lang::get('Account Activation'))
+                ->line(Lang::get('You are receiving this email because we’ve created a new account for you. To get started, you’ll need to activate your account by setting a password.'))
+                ->action(Lang::get('Set Password'), $url)
+                ->line(Lang::get('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]))
+                 ->line(Lang::get('If you do not want to activate your account, no further action is necessary.  If you have questions about this email, please contact your Data Intelligence Group account representative or contact us by calling 615.861.3301 x.7017'));
+         }
+         else {
+            \Log::error("RESET PASSWORD");
+            \Log::error($notifiable->created_at);
+            \Log::error($notifiable->updated_at);
+            return (new MailMessage)
+            ->subject(Lang::get('Password Reset'))
+            ->line(Lang::get('You are receiving this email because you have requested a password reset. Click the link below to reset your password.'))
+            ->action(Lang::get('Reset Password'), $url)
             ->line(Lang::get('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]))
-             ->line(Lang::get('If you do not want to activate your account, no further action is necessary.  If you have questions about this email, please contact your Data Intelligence Group account representative or contact us by calling 615.861.3301 x.7017'));
+             ->line(Lang::get('If you do not want to reset your password, no further action is necessary.  If you have questions about this email, please contact your Data Intelligence Group account representative or contact us by calling 615.861.3301 x.7017'));
+         }
 
     }
 

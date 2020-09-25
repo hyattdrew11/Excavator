@@ -16,6 +16,7 @@
 @endsection
 
 @section('content')
+    <i id="loader" class="fa fa-spinner fa-pulse fa-3x fa-fw" ></i>
     <div class="container-fluid mt-2">
         @if(config('laravelusers.enablePackageBootstapAlerts'))
             <div class="row">
@@ -26,7 +27,7 @@
         @endif
         <div class="row">
             <div class="col-lg-12">
-                <div class="card">
+                <div id="create-user" class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             {!! trans('laravelusers::laravelusers.create-new-user') !!}
@@ -185,4 +186,17 @@
     @if(config('laravelusers.tooltipsEnabled'))
         @include('laravelusers::scripts.tooltips')
     @endif
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('input#create-user').attr('autocomplete','off');
+            $("#loader").fadeOut();
+            $('#create-user').submit(function(e) {
+                console.log(e);
+                // e.preventDefault();
+                $("#loader").fadeIn();
+                $('#create-user').fadeOut();
+            });
+        });
+
+    </script>
 @endsection

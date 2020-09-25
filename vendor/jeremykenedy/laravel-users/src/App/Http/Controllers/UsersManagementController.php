@@ -137,21 +137,10 @@ class UsersManagementController extends Controller
         }
 
         $credentials = ['email' => $user->email];
-        // $response = Password::sendResetLink($credentials, function (Message $message) {
-        //     $message->subject($this->getEmailSubject());
-        // });
-        $data = $user->email;
-        // $response = \Mail::to($user->email)->send(new Welcome($user));
-        $response  = Mail::send('mail.welcome', array($data) , function($message) use($data) {
-            $message->to($data);
-            $message->subject('Welcome to the DIG Excavator.');
+        $response = Password::sendResetLink($credentials, function (Message $message) {
+            $message->subject($this->getEmailSubject());
         });
-
-            // \Mail::send(['text'=>'smtp-check'], array($mail), function($message) {
-            //     $message->to('drew@thearchengine.com', 'Welcome to excavator app.')->subject('Welcome to DIG Excator.');
-            //     $message->from('drew@thearchengine.com','Drew Hyatt');
-            // });
-
+        
         return redirect('users')->with('success', trans('laravelusers::laravelusers.messages.user-creation-success'));
     }
 

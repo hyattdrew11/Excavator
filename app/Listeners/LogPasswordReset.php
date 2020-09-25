@@ -23,7 +23,7 @@ class LogPasswordReset
      */
     public function __construct()
     {
-        //
+        //Welcome
     }
 
     /**

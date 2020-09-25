@@ -1,6 +1,6 @@
 <template>
     <div id="admin" class="p-3 mt-2">
-
+    <i id="loader" v-if="loading" class="fa fa-spinner fa-pulse fa-3x fa-fw" ></i>
 
       <div id="modal" class="modal fade" tabindex="-1" role="dialog">
               <div class="modal-dialog modal-lg" role="document">
@@ -118,7 +118,7 @@
   ============================================================================================================================================  
 -->
 
-             <div class="row mt-2">
+             <div :class="{loading : loading}" class="row mt-2">
                <div class="col-md-12">
                     <h4>SMTP Connection
                       <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#modal">Edit Connection</button>
@@ -190,6 +190,7 @@
         },
         data() {
             return { 
+                loading: false,
                 test: { 
                   email: null,
                   subject: ''
@@ -202,19 +203,22 @@
         },
         methods: {
           testConnection(evt) { 
+            let close = document.getElementById("testConnection");
+            close.click()
+            this.loading = true
             evt.preventDefault()
             this.$Progress.start()
             let x = { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
             window.axios.post('/test/connection', this.test , { headers : x })
               .then(({ data }) => { 
                 if(data) { 
-                  let close = document.getElementById("testConnection");
-                  close.click()
                   this.$Progress.finish()
                   alert("Test email sent to "+this.test.email)
+                  this.loading = false
                 }else {
                   this.$Progress.fail()
                   alert('Error sending test email.');
+                  this.loading = false
                 }
               })
               .catch(function (e) { alert(e) })

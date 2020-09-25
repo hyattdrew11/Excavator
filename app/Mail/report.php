@@ -49,7 +49,11 @@ class report extends Mailable
         }
          // KEYS
         foreach($jsonDecoded['keys'] as $row) {
-                $string .= '"'.$row['label'].'",';
+                $string .= '"'.$row['header'].'",';
+        }
+        // ADDRESS
+        foreach($jsonDecoded['addresses'] as $row) {
+                $string .= '"'.$row['header'].'",';
         }
         // BRANDS
         foreach($jsonDecoded['brands'] as $row) {
@@ -80,7 +84,17 @@ class report extends Mailable
                 }
             }
         }
+        // KEYS VALUES
         foreach($jsonDecoded['keys'] as $row){
+            $childCount = count($row['child']);
+            if($childCount > 0) {
+                $string .= '"' . $row['child'][0]['value'].'",';
+            }
+            else {
+                $string .= ",";
+            }
+        }
+        foreach($jsonDecoded['addresses'] as $row){
             $childCount = count($row['child']);
             if($childCount > 0) {
                 $string .= '"' . $row['child'][0]['value'].'",';
