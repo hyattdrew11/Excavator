@@ -5,6 +5,8 @@ namespace Illuminate\Auth\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\HtmlString;
+
 
 class ResetPassword extends Notification
 {
@@ -67,17 +69,19 @@ class ResetPassword extends Notification
         if (static::$createUrlCallback) {
             $url = call_user_func(static::$createUrlCallback, $notifiable, $this->token);
         } else {
-            $url = url(config('app.url').route('password.reset', [
+            $url = url("https://toolshed.wedigdata.com".route('password.reset', [
                 'token' => $this->token,
                 'email' => $notifiable->getEmailForPasswordReset(),
             ], false));
         }
+        $imageHtml = '<img src="/img/DIG-LOGO-BIG.jpg" />';
         if($notifiable->created_at == $notifiable->updated_at) {
             \Log::error("ACTIVATE ACCOUNT");
             \Log::error($notifiable->created_at);
             \Log::error($notifiable->updated_at);
             return (new MailMessage)
                 ->subject(Lang::get('Account Activation'))
+                ->line(new HtmlString($imageHtml))
                 ->line(Lang::get('You are receiving this email because we’ve created a new account for you. To get started, you’ll need to activate your account by setting a password.'))
                 ->action(Lang::get('Set Password'), $url)
                 ->line(Lang::get('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]))
@@ -89,6 +93,7 @@ class ResetPassword extends Notification
             \Log::error($notifiable->updated_at);
             return (new MailMessage)
             ->subject(Lang::get('Password Reset'))
+            ->line(new HtmlString($imageHtml))
             ->line(Lang::get('You are receiving this email because you have requested a password reset. Click the link below to reset your password.'))
             ->action(Lang::get('Reset Password'), $url)
             ->line(Lang::get('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]))
