@@ -192,3 +192,10 @@ body {
     padding: 30px 10px 10px 45px;
     margin: 10px 0px 5px 0px;
 }
+.floating-alert {
+    position: absolute;
+    width: 20%;
+    right: 45px;
+    bottom: 15px;
+    z-index: 20000!important;
+}
