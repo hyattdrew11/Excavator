@@ -74,13 +74,15 @@ class ResetPassword extends Notification
                 'email' => $notifiable->getEmailForPasswordReset(),
             ], false));
         }
-        $imageHtml = '<img src="/img/DIG-LOGO-BIG.jpg" />';
+        $imageHtml = '<p><img style="width:50%;display: inline-block; margin-left: 25%; position: relative;" src="https://toolshed.wedigdata.com/public/img/DIG-LOGO-BIG.png" /></p>';
+        $greet = '<h1 style="text-align: center; font-weight: 400; font-size: 1px;"></h1>';
         if($notifiable->created_at == $notifiable->updated_at) {
             \Log::error("ACTIVATE ACCOUNT");
             \Log::error($notifiable->created_at);
             \Log::error($notifiable->updated_at);
             return (new MailMessage)
-                ->subject(Lang::get('Account Activation'))
+                ->subject(Lang::get('Account Activation - DIG Excavator'))
+                ->greeting(new HtmlString($greet))
                 ->line(new HtmlString($imageHtml))
                 ->line(Lang::get('You are receiving this email because we’ve created a new account for you. To get started, you’ll need to activate your account by setting a password.'))
                 ->action(Lang::get('Set Password'), $url)
@@ -92,7 +94,8 @@ class ResetPassword extends Notification
             \Log::error($notifiable->created_at);
             \Log::error($notifiable->updated_at);
             return (new MailMessage)
-            ->subject(Lang::get('Password Reset'))
+            ->subject(Lang::get('Password Reset - DIG Excavator'))
+            ->greeting(new HtmlString($greet))
             ->line(new HtmlString($imageHtml))
             ->line(Lang::get('You are receiving this email because you have requested a password reset. Click the link below to reset your password.'))
             ->action(Lang::get('Reset Password'), $url)
